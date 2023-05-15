@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "696262124909",
+    "project_id": "ideal-playground",
+    "storage_bucket": "ideal-playground.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696262124909:android:e87cf86c5b63539ecda664",
+        "android_client_info": {
+          "package_name": "com.example.ideal_playground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696262124909-v81f57pd8kq3gbq8i54k1nl5937b2e58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2n7nDrf12gytS3fgMuRpX8ZUcRhYzvpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696262124909-v81f57pd8kq3gbq8i54k1nl5937b2e58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
