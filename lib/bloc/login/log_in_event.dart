@@ -32,6 +32,19 @@ class LogInPasswordChanged extends LogInEvent {
   String toString() => 'LogInPasswordChanged { password: $password }';
 }
 
+class LogInSubmitted extends LogInEvent {
+  String email;
+  String password;
+  LogInSubmitted({required this.email, required this.password});
+
+  @override
+  List<Object> get props => [email, password];
+
+  @override
+  String toString() => 'LogInSubmitted { email: $email, password: $password }';
+
+}
+
 class LogInWithEmailPasswordPressed extends LogInEvent {
   final String email;
   final String password;

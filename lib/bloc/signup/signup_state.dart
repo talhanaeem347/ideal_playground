@@ -1,7 +1,9 @@
-part of 'log_in_bloc.dart';
+
+part of 'signup_bloc.dart';
+
 
 @immutable
-class LogInState {
+class SignUpState {
   final bool isValidEmail;
   final bool isValidPassword;
   final bool isSubmitting;
@@ -10,10 +12,10 @@ class LogInState {
 
   bool get isValidForm => isValidEmail && isValidPassword ;
 
-  const LogInState({required this.isValidEmail, required this.isValidPassword, required this.isSubmitting, required this.isSuccess, required this.isFailure});
+  const SignUpState({required this.isValidEmail, required this.isValidPassword, required this.isSubmitting, required this.isSuccess, required this.isFailure});
 
-  factory LogInState.initial() {
-    return const LogInState(
+  factory SignUpState.initial() {
+    return const SignUpState(
       isValidEmail: false,
       isValidPassword: false,
       isSubmitting: false,
@@ -21,8 +23,8 @@ class LogInState {
       isFailure: false,
     );
   }
-  factory LogInState.empty() {
-    return const LogInState(
+  factory SignUpState.empty() {
+    return const SignUpState(
       isValidEmail: true,
       isValidPassword: true,
       isSubmitting: false,
@@ -30,8 +32,8 @@ class LogInState {
       isFailure: false,
     );
   }
-  factory LogInState.loading() {
-    return const LogInState(
+  factory SignUpState.loading() {
+    return const SignUpState(
       isValidEmail: true,
       isValidPassword: true,
       isSubmitting: true,
@@ -39,8 +41,8 @@ class LogInState {
       isFailure: false,
     );
   }
-  factory LogInState.success() {
-    return const LogInState(
+  factory SignUpState.success() {
+    return const SignUpState(
       isValidEmail: true,
       isValidPassword: true,
       isSubmitting: false,
@@ -48,8 +50,8 @@ class LogInState {
       isFailure: false,
     );
   }
-  factory LogInState.failure() {
-    return const LogInState(
+  factory SignUpState.failure() {
+    return const SignUpState(
       isValidEmail: true,
       isValidPassword: true,
       isSubmitting: false,
@@ -58,7 +60,7 @@ class LogInState {
     );
   }
 
-  LogInState update({
+  SignUpState update({
     bool? isValidEmail,
     bool? isValidPassword,
   }) {
@@ -71,14 +73,14 @@ class LogInState {
     );
   }
 
-  LogInState copyWith({
+  SignUpState copyWith({
     bool? isValidEmail,
     bool? isValidPassword,
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
   }) {
-    return LogInState(
+    return SignUpState(
       isValidEmail: isValidEmail ?? this.isValidEmail,
       isValidPassword: isValidPassword ?? this.isValidPassword,
       isSubmitting: isSubmitting ?? this.isSubmitting,
@@ -87,3 +89,5 @@ class LogInState {
     );
   }
 }
+
+// class LogInInitial extends SignUpState {}
