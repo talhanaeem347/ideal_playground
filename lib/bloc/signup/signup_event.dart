@@ -47,19 +47,33 @@ class SignUpSubmitted extends SignUpEvent {
 
 }
 
-class SignUpWithEmailPasswordPressed extends SignUpEvent {
-  final String email;
-  final String password;
+class SignUpConfirmPasswordChanged extends SignUpEvent {
+  final String confirmPassword;
 
-  const SignUpWithEmailPasswordPressed(
-      {required this.email, required this.password});
+  const SignUpConfirmPasswordChanged({required this.confirmPassword});
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [confirmPassword];
 
   @override
   String toString() =>
-      'SignUpWithEmailPasswordPressed { email: $email, password: $password }';
+      'SignUpConfirmPasswordChanged { confirmPassword: $confirmPassword }';
+}
+
+class SignUpWithEmailPasswordPressed extends SignUpEvent {
+  final String email;
+  final String password;
+  final String confirmPassword;
+
+  const SignUpWithEmailPasswordPressed(
+      {required this.email, required this.password, required this.confirmPassword});
+
+  @override
+  List<Object> get props => [email, password, confirmPassword];
+
+  @override
+  String toString() =>
+      'SignUpWithEmailPasswordPressed { email: $email, password: $password , confirmPassword: $confirmPassword }';
 }
 
 class LogInWithGooglePressed extends SignUpEvent {

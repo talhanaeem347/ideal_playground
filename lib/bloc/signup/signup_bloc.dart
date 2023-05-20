@@ -80,10 +80,10 @@ import 'package:regexed_validator/regexed_validator.dart';
 part 'signup_event.dart';
 part 'signup_state.dart';
 
-class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+class SignupBloc extends Bloc<SignUpEvent, SignUpState> {
   final UserRepository _userRepository;
 
-  SignUpBloc({required UserRepository userRepository})
+  SignupBloc({required UserRepository userRepository})
       : assert(!userRepository.isNull),
         _userRepository = userRepository,
         super(SignUpState.initial()) {
