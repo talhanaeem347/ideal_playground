@@ -43,6 +43,8 @@ class _MyAppState extends State<MyApp> {
         title: 'Ideal Playground',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFF021229),
+
         ),
         home: BlocBuilder(
           bloc: _authenticationBloc,
@@ -52,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             } else if (state is Authenticated) {
               return const HomePage();
             } else if (state is UnAuthenticated) {
-              return const Text("UnAuthenticated");
+              return const Splash();
             } else if (state is AuthenticatedButNotSet) {
               return const Text("AuthenticatedButNotSet");
             } else {
