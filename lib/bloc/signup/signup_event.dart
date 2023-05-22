@@ -49,15 +49,16 @@ class SignUpSubmitted extends SignUpEvent {
 
 class SignUpConfirmPasswordChanged extends SignUpEvent {
   final String confirmPassword;
+  final String password;
 
-  const SignUpConfirmPasswordChanged({required this.confirmPassword});
+  const SignUpConfirmPasswordChanged({required this.confirmPassword, required this.password});
 
   @override
-  List<Object> get props => [confirmPassword];
+  List<Object> get props => [confirmPassword, password];
 
   @override
   String toString() =>
-      'SignUpConfirmPasswordChanged { confirmPassword: $confirmPassword }';
+      'SignUpConfirmPasswordChanged { confirmPassword: $confirmPassword, password: $password } ';
 }
 
 class SignUpWithEmailPasswordPressed extends SignUpEvent {

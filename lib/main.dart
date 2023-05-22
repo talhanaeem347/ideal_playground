@@ -5,8 +5,8 @@ import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/bloc/bloc_delegate.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/pages/home.dart';
+import 'package:ideal_playground/ui/pages/sign_up.dart';
 import 'package:ideal_playground/ui/pages/splash.dart';
-import 'package:ideal_playground/ui/widgets/tabs.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 import 'firebase_options.dart';
@@ -28,26 +28,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final  UserRepository _userRepository = UserRepository();
+  final UserRepository _userRepository = UserRepository();
   late AuthenticationBloc _authenticationBloc;
 
   @override
   void initState() {
-    _authenticationBloc =
-        AuthenticationBloc( userRepository: _userRepository);
-      _authenticationBloc.add(AppStarted());
+    _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
+    _authenticationBloc.add(AppStarted());
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => _authenticationBloc,
+    return BlocProvider(
+      create: (context) => _authenticationBloc,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: AppStrings.appName,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: AppColors.primarySwatch,
           scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
-
         ),
         home: BlocBuilder(
           bloc: _authenticationBloc,
@@ -57,16 +58,15 @@ class _MyAppState extends State<MyApp> {
             } else if (state is Authenticated) {
               return const HomePage();
             } else if (state is UnAuthenticated) {
-              return const Tabs();
+              return SignUpPage(userRepository: _userRepository);
             } else if (state is AuthenticatedButNotSet) {
               return const Text("AuthenticatedButNotSet");
             } else {
               return const Splash();
             }
           },
-        )
+        ),
       ),
-      );
+    );
   }
 }
-
