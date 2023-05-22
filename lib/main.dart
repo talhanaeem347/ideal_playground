@@ -5,6 +5,7 @@ import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/bloc/bloc_delegate.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/pages/home.dart';
+import 'package:ideal_playground/ui/pages/log_in.dart';
 import 'package:ideal_playground/ui/pages/sign_up.dart';
 import 'package:ideal_playground/ui/pages/splash.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
             } else if (state is Authenticated) {
               return const HomePage();
             } else if (state is UnAuthenticated) {
-              return SignUpPage(userRepository: _userRepository);
+              return LogInPage(userRepository: _userRepository);
             } else if (state is AuthenticatedButNotSet) {
               return const Text("AuthenticatedButNotSet");
             } else {

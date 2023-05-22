@@ -1,59 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
-import 'package:ideal_playground/bloc/signup/signup_bloc.dart';
+import 'package:ideal_playground/bloc/login/log_in_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/widgets/custom/my_input_field.dart';
 import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
-class SignUpForm extends StatefulWidget {
+class LogInForm extends StatefulWidget {
   final UserRepository _userRepository;
 
-  const SignUpForm({
+  const LogInForm({
     Key? key,
     required UserRepository userRepository,
   })  : _userRepository = userRepository,
         super(key: key);
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
+  State<LogInForm> createState() => _LogInFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _LogInFormState extends State<LogInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  SignupBloc _signUpBloc = SignupBloc(userRepository: UserRepository());
+  late LogInBloc _logInBloc;
 
   UserRepository get _userRepository => widget._userRepository;
 
   bool get isPopulated =>
-      _emailController.text.isNotEmpty &&
-      _passwordController.text.isNotEmpty &&
-      _confirmPasswordController.text.isNotEmpty;
+      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
-  bool isSignUpButtonEnabled(SignUpState state) {
+  bool isLoginButtonEnabled(LogInState state) {
     return isPopulated && !state.isSubmitting;
   }
 
   @override
   void initState() {
     super.initState();
-    _signUpBloc = SignupBloc(userRepository: _userRepository);
+    _logInBloc = LogInBloc(userRepository: _userRepository);
     _emailController.addListener(_onEmailChanged);
     _passwordController.addListener(_onPasswordChanged);
-    _confirmPasswordController.addListener(_onConfirmPasswordChanged);
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocListener(
-      bloc: _signUpBloc,
-      listener: (BuildContext context, SignUpState state) {
+      bloc: _logInBloc,
+      listener: (BuildContext context, LogInState state) {
         if (state.isFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -66,7 +61,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppStrings.signUpFailure),
+                      Text(AppStrings.invalidEmailAndPasswordCombination),
                       const Icon(Icons.error),
                     ],
                   ),
@@ -86,7 +81,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppStrings.signingUp),
+                      Text(AppStrings.loggingIn),
                       const CircularProgressIndicator(),
                     ],
                   ),
@@ -100,13 +95,13 @@ class _SignUpFormState extends State<SignUpForm> {
         }
       },
       child: BlocBuilder(
-        bloc: _signUpBloc,
-        builder: (BuildContext context, SignUpState state) {
+        bloc: _logInBloc,
+        builder: (BuildContext context, LogInState state) {
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
               color: AppColors.scaffoldBackgroundColor,
-              height: size.height * 0.65,
+              height: size.height * 0.55,
               width: size.width,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -143,26 +138,15 @@ class _SignUpFormState extends State<SignUpForm> {
                           : null;
                     },
                   ),
-                  MyInputField(
-                    controllerText: _confirmPasswordController,
-                    label: AppStrings.confirmPassword,
-                    textInputType: TextInputType.visiblePassword,
-                    isObscure: true,
-                    validator: (value) {
-                      return !state.isConfirmPassword
-                          ? AppStrings.passNoMatch
-                          : null;
-                    },
-                  ),
                   const SizedBox(height: 20),
                   SimpleButton(
                     onPressed: () {
-                      if (state.isConfirmPassword && isSignUpButtonEnabled(state)) {
-                      _onFormSubmitted(state);
+                      if (state.isValidEmail && state.isValidPassword && isLoginButtonEnabled(state)) {
+                        _onFormSubmitted();
                       }
                     },
-                    label: AppStrings.signUp,
-                    color: isSignUpButtonEnabled(state)
+                    label: AppStrings.logIn,
+                    color: isLoginButtonEnabled(state)
                         ? AppColors.white
                         : AppColors.white.withOpacity(0.5),
                     textColor: AppColors.yellow,
@@ -179,21 +163,15 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   void _onEmailChanged() =>
-      _signUpBloc.add(SignUpEmailChanged(email: _emailController.text));
+      _logInBloc.add(LogInEmailChanged(email: _emailController.text));
 
-  void _onPasswordChanged() => _signUpBloc
-      .add(SignUpPasswordChanged(password: _passwordController.text));
+  void _onPasswordChanged() =>
+      _logInBloc.add(LogInPasswordChanged(password: _passwordController.text));
 
-  void _onConfirmPasswordChanged() =>
-      _signUpBloc.add(SignUpConfirmPasswordChanged(
-          confirmPassword: _confirmPasswordController.text,
-          password: _passwordController.text));
-
-  void _onFormSubmitted(SignUpState state) {
-    _signUpBloc.add(SignUpWithEmailPasswordPressed(
+  void _onFormSubmitted() {
+    _logInBloc.add(LogInWithEmailPasswordPressed(
       email: _emailController.text,
       password: _passwordController.text,
-      confirmPassword: _confirmPasswordController.text,
     ));
   }
 
@@ -201,8 +179,7 @@ class _SignUpFormState extends State<SignUpForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _signUpBloc.close();
+    _logInBloc.close();
     super.dispose();
   }
 }

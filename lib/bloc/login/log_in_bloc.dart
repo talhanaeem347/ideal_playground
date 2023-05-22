@@ -68,7 +68,6 @@
 // }
 
 import 'dart:async';
-import 'dart:js_interop';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';

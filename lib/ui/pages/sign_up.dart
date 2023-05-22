@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/signup/signup_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
+import 'package:ideal_playground/ui/pages/log_in.dart';
 import 'package:ideal_playground/ui/widgets/sign_up_form.dart';
+import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -32,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   Text(
-                    'Create Account',
+                    AppStrings.createAccount,
                     style: TextStyle(
                         color: AppColors.white,
                         fontSize: 30,
@@ -42,6 +44,25 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   SignUpForm(userRepository: _userRepository),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(                      MaterialPageRoute(
+                          builder: (context) => LogInPage(
+                              userRepository: _userRepository)));
+                    },
+                    child: Text(
+                      AppStrings.alreadyHaveAccount,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: AppColors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+
                 ],
               ),
             ),
