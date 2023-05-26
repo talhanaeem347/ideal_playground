@@ -60,6 +60,8 @@
 // }
 //
 
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
@@ -75,12 +77,14 @@ class AuthenticationBloc
 
   AuthenticationBloc({required UserRepository userRepository})
       : _userRepository = userRepository,
-        super(UnInitialized())
-  {
+        super(UnInitialized()) {
     on<AppStarted>(_mapAppStartedToState);
     on<LoggedIn>(_mapAppLoggedInToState);
+    on<InitialComplete>(_mapAppInitialToState);
     on<LoggedOut>(_mapAppLoggedOutToState);
   }
+
+  Future<String> get uid async => await _userRepository.getCurrentUser();
 
   AuthenticationState get initialState => UnInitialized();
 
@@ -88,12 +92,13 @@ class AuthenticationBloc
     try {
       final isLogIn = await _userRepository.isLoggedIn();
       if (isLogIn) {
-        final uid = await _userRepository.getCurrentUser();
-        final isFirstTime = await _userRepository.isFirstTime(uid);
-        if (isFirstTime) {
-          emit(AuthenticatedButNotSet(uid));
+        final isFirstTime = await _userRepository.isFirstTime(await uid);
+        if (!isFirstTime) {
+          emit(AuthenticatedButNotSet(await uid));
+        } else if (await _userRepository.userNotComplete(await uid)) {
+          emit(ProfileInComplete(await uid));
         } else {
-          emit(Authenticated(uid));
+          emit(Authenticated(await uid));
         }
       } else {
         emit(UnAuthenticated());
@@ -104,17 +109,26 @@ class AuthenticationBloc
   }
 
   void _mapAppLoggedInToState(event, emit) async {
-    final uid = await _userRepository.getCurrentUser();
-    final isFirstTime = await _userRepository.isFirstTime(uid);
-    if (isFirstTime) {
-      emit(AuthenticatedButNotSet(uid));
-    } else {
-      emit(Authenticated(uid));
+    try {
+      final isFirstTime = await _userRepository.isFirstTime(await uid);
+      if (isFirstTime) {
+        emit(AuthenticatedButNotSet(await uid));
+      } else if (await _userRepository.userNotComplete(await uid)) {
+        emit(ProfileInComplete(await uid));
+      } else {
+        emit(Authenticated(await uid));
+      }
+    } catch (_) {
+      emit(AuthenticatedButNotSet(await uid));
     }
   }
 
   void _mapAppLoggedOutToState(event, emit) async {
     await _userRepository.signOut();
     emit(UnAuthenticated());
+  }
+
+  void _mapAppInitialToState(event, emit) async {
+    emit(ProfileInComplete(await uid));
   }
 }

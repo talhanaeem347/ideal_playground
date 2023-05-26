@@ -24,7 +24,7 @@ class SimpleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
           child: Center(
-            child: Text('Register',
+            child: Text(label,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: textColor,

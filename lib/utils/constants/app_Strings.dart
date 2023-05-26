@@ -19,9 +19,30 @@ class AppStrings{
   static String get signUpFailure => "Sign Up Failed";
   static String get logInFailure => "Log In Failed";
   static String get invalidEmailAndPasswordCombination => "Invalid Email and Password Combination";
-  static String get logInWithEmailPasswordPressed => "Log In With Email Password Pressed";
-  static String get signUpWithEmailPasswordPressed => "Sign Up With Email Password Pressed";
-  static String get logOut => "Log Out";
+  static String get failureMessage => "Something went wrong";
+  static String get submitting => "Submitting ...";
+  static String get name => "Name";
+  static String get invalidName  => "Invalid Name";
+  static String get enterDateOfBirth => "Enter Date of Birth";
+  static String get yourGender => "Your Gender";
+  static String get interestedIn => "Interested In";
+  static String get save => "Save";
+  static String get profile => "Profile";
+  static DateTime get minDate => DateTime(1900, 1, 1);
+  static DateTime get maxDate => DateTime(DateTime.now().year - 18, 12, 31);
+  static String get phone => "Phone";
+  static String get invalidPhone => "Invalid Phone";
+  static String get country => "Country";
+  static String get state => "State";
+  static String get city => "City";
+  static String get invalidCity => "Invalid City";
+  static String get invalidState => "Invalid State";
+  static String get invalidCountry => "Invalid Country";
+  static String get isMarried => "Are you married?";
+  static String get yes => "Yes";
+  static String get no => "No";
+  static String get isOpenForRelationship => "Open for relationship?";
+
 
 
 }

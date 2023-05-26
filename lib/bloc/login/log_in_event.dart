@@ -33,31 +33,29 @@ class LogInPasswordChanged extends LogInEvent {
 }
 
 class LogInSubmitted extends LogInEvent {
-  String email;
-  String password;
-  LogInSubmitted({required this.email, required this.password});
+  final String email;
+  final String password;
+
+  const LogInSubmitted({required this.email, required this.password});
 
   @override
   List<Object> get props => [email, password];
 
   @override
   String toString() => 'LogInSubmitted { email: $email, password: $password }';
-
 }
 
 class LogInWithEmailPasswordPressed extends LogInEvent {
   final String email;
   final String password;
 
-  const LogInWithEmailPasswordPressed({required this.email, required this.password});
+  const LogInWithEmailPasswordPressed(
+      {required this.email, required this.password});
 
   @override
   List<Object> get props => [email, password];
 
   @override
-  String toString() => 'LogInWithEmailPasswordPressed { email: $email, password: $password }';
-}
-class LogInWithGooglePressed extends LogInEvent {
-  @override
-  String toString() => 'LogInWithGooglePressed';
+  String toString() =>
+      'LogInWithEmailPasswordPressed { email: $email, password: $password }';
 }

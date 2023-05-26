@@ -3,18 +3,21 @@ import 'package:ideal_playground/utils/constants/app_colors.dart';
 
 class MyInputField extends StatelessWidget {
   final String label;
-  final TextEditingController controllerText;
+  final TextEditingController? controllerText;
   final String? Function(String?)? validator;
   final TextInputType textInputType;
   final bool isObscure;
 
+  final void Function(String)? onChanged;
+
   const MyInputField({
     Key? key,
-    required this.controllerText,
+    this.controllerText,
     required this.label,
     this.validator,
     this.textInputType = TextInputType.text,
     this.isObscure = false,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -45,7 +48,6 @@ class MyInputField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-
         style: TextStyle(color: AppColors.yellow, fontSize: 18),
         controller: controllerText,
         keyboardType: textInputType,
@@ -53,6 +55,7 @@ class MyInputField extends StatelessWidget {
         autocorrect: false,
         obscureText: isObscure,
         validator: validator ?? (value) => null,
+        onChanged: onChanged,
       ),
     );
   }

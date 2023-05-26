@@ -91,7 +91,7 @@ class _LogInFormState extends State<LogInForm> {
         }
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
         }
       },
       child: BlocBuilder(
@@ -101,13 +101,14 @@ class _LogInFormState extends State<LogInForm> {
             scrollDirection: Axis.vertical,
             child: Container(
               color: AppColors.scaffoldBackgroundColor,
-              height: size.height * 0.55,
+              height: size.height * 0.65,
               width: size.width,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: size.height * 0.05),
                   Container(
                     margin: const EdgeInsets.only(bottom: 20),
                     height: size.height * 0.2,
