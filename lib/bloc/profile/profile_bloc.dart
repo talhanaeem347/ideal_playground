@@ -63,9 +63,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       allowMultiple: false,
     );
     if (result != null) {
-      emit(state.update(photoUrl: result.files.single.path));
-    } else {
-      emit(state.update(photoUrl: ''));
+
+    emit(state.update(filePhoto: result.files.single.path!));
     }
   }
 
@@ -96,8 +95,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     try {
       String uid = await _userRepository.getCurrentUser();
       String url =
-          await _userRepository.uploadProfilePicture(uid, state.photoUrl);
-      emit(state.update(photoUrl: url));
+          await _userRepository.uploadProfilePicture(uid, state.filePhoto);
+      await emit(state.update(photoUrl: url));
       await _userRepository.createProfile(uid, state.user.toMap());
 
       emit(state.success());

@@ -84,21 +84,22 @@ class AuthenticationBloc
     on<LoggedOut>(_mapAppLoggedOutToState);
   }
 
-  Future<String> get uid async => await _userRepository.getCurrentUser();
+  Future<String> get _uid async => await _userRepository.getCurrentUser();
 
   AuthenticationState get initialState => UnInitialized();
 
   void _mapAppStartedToState(event, emit) async {
     try {
+      final String uid = await _uid;
       final isLogIn = await _userRepository.isLoggedIn();
       if (isLogIn) {
-        final isFirstTime = await _userRepository.isFirstTime(await uid);
+        final isFirstTime = await _userRepository.isFirstTime(uid);
         if (!isFirstTime) {
-          emit(AuthenticatedButNotSet(await uid));
-        } else if (await _userRepository.userNotComplete(await uid)) {
-          emit(ProfileInComplete(await uid));
+          emit(AuthenticatedButNotSet(uid));
+        } else if (await _userRepository.userNotComplete(uid)) {
+          emit(ProfileInComplete(uid));
         } else {
-          emit(Authenticated(await uid));
+          emit(Authenticated(uid));
         }
       } else {
         emit(UnAuthenticated());
@@ -109,17 +110,18 @@ class AuthenticationBloc
   }
 
   void _mapAppLoggedInToState(event, emit) async {
+      final uid = await _uid;
     try {
-      final isFirstTime = await _userRepository.isFirstTime(await uid);
+      final isFirstTime = await _userRepository.isFirstTime(uid);
       if (isFirstTime) {
-        emit(AuthenticatedButNotSet(await uid));
-      } else if (await _userRepository.userNotComplete(await uid)) {
-        emit(ProfileInComplete(await uid));
+        emit(AuthenticatedButNotSet(uid));
+      } else if (await _userRepository.userNotComplete(uid)) {
+        emit(ProfileInComplete( uid));
       } else {
-        emit(Authenticated(await uid));
+        emit(Authenticated(uid));
       }
     } catch (_) {
-      emit(AuthenticatedButNotSet(await uid));
+      emit(AuthenticatedButNotSet(uid));
     }
   }
 
@@ -129,6 +131,6 @@ class AuthenticationBloc
   }
 
   void _mapAppInitialToState(event, emit) async {
-    emit(ProfileInComplete(await uid));
+    emit(ProfileInComplete(await _uid));
   }
 }

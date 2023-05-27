@@ -47,16 +47,14 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           if (state is UnInitialized) {
             return const Splash();
+          } else if (state is AuthenticatedButNotSet) {
+            return Profile(userRepository: _userRepository);
           } else if (state is ProfileInComplete) {
             return Profile(userRepository: _userRepository);
           } else if (state is Authenticated) {
             return const Tabs();
           } else if (state is UnAuthenticated) {
             return LogInPage(userRepository: _userRepository);
-          } else if (state is AuthenticatedButNotSet) {
-            return Profile(
-              userRepository: _userRepository,
-            );
           } else {
             return const Splash();
           }

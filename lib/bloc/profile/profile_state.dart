@@ -4,21 +4,7 @@ class ProfileState {
   bool isSubmitting = false;
   bool isSuccess = false;
   bool isFailure = false;
-
-
-  // String name = "";
-  // String gender = "";
-  // String phone = "";
-  // String city = "";
-  // String state = "";
-  // String country = "";
-  String photoUrl = "";
-
-  // GeoPoint location = const GeoPoint(0, 0);
-  // DateTime dateOfBirth = AppStrings.maxDate;
-  // String interestedIn = "";
-  // bool isMarried = false;
-  // bool isOpen = false;
+  String filePhoto = "";
   User user = User();
 
   get endValid =>
@@ -29,7 +15,7 @@ class ProfileState {
           user.interestedIn.isNotEmpty;
 
   bool get initialValid =>
-      photoUrl.isNotEmpty &&
+          filePhoto.isNotEmpty &&
           user.name.isNotEmpty &&
           user.gender.isNotEmpty &&
           user.dateOfBirth != DateTime(2004, 1, 1) &&
@@ -40,21 +26,8 @@ class ProfileState {
     required this.isSuccess,
     required this.isFailure,
     required this.user,
-    required photoUrl,
+    required this.filePhoto,
   });
-
-  // required this.name,
-  // required this.gender,
-  // required this.phone,
-  // required this.city,
-  // required this.state,
-  // required this.country,
-  // required this.photoUrl,
-  // required this.location,
-  // required this.dateOfBirth,
-  // required this.interestedIn,
-  // required this.isMarried,
-  // required this.isOpen});
 
   factory ProfileState.initial() {
     return ProfileState(
@@ -62,19 +35,7 @@ class ProfileState {
       isSuccess: false,
       isFailure: false,
       user: User(),
-      photoUrl: "",
-      // name: "",
-      // gender: "",
-      // phone: "",
-      // city: "",
-      // state: "",
-      // country: "",
-      // photoUrl: "",
-      // location: const GeoPoint(0, 0),
-      // dateOfBirth: DateTime(2004, 1, 1),
-      // interestedIn: "",
-      // isMarried: false,
-      // isOpen: false,
+      filePhoto: "",
     );
   }
 
@@ -118,12 +79,13 @@ class ProfileState {
     String? interestedIn,
     bool? isMarried,
     bool? isOpen,
+    String? filePhoto,
   }) {
     return ProfileState(
       isSubmitting: isSubmitting ?? false,
       isSuccess: isSuccess ?? false,
       isFailure: isFailure ?? false,
-      photoUrl: "",
+      filePhoto: filePhoto ?? this.filePhoto,
       user: User(
     name: name ?? user.name,
       gender: gender ?? user.gender,

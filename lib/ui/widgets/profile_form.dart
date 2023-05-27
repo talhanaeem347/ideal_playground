@@ -135,11 +135,11 @@ class _ProfileFormState extends State<ProfileForm> {
                       child: CircleAvatar(
                         radius: size.width * 0.2,
                         backgroundColor: AppColors.red,
-                        backgroundImage: state.photoUrl.isNotEmpty
-                            ? FileImage(File(state.photoUrl))
+                        backgroundImage: state.filePhoto.isNotEmpty
+                            ? FileImage(File(state.filePhoto))
                             : null,
                         child: GestureDetector(
-                            child: state.photoUrl.isEmpty
+                            child: state.filePhoto.isEmpty
                                 ? Icon(
                                     Icons.add_a_photo,
                                     size: size.width * 0.1,
@@ -172,7 +172,8 @@ class _ProfileFormState extends State<ProfileForm> {
                             state.user.dateOfBirth.toString() ==
                                     AppStrings.maxDate.toString()
                                 ? AppStrings.enterDateOfBirth
-                                : DateFormat.yMMMd().format(state.user.dateOfBirth),
+                                : DateFormat.yMMMd()
+                                    .format(state.user.dateOfBirth),
                             style: TextStyle(
                                 fontSize: size.width * 0.08,
                                 color: AppColors.white,

@@ -57,13 +57,7 @@ class CountryChanged extends ProfileEvent{
   List<Object> get props => [country];
 }
 
-class PhotoUrlChanged extends ProfileEvent{
-  // final String photoUrl;
-  // const PhotoUrlChanged({required this.photoUrl});
-  //
-  // @override
-  // List<Object> get props => [photoUrl];
-}
+class PhotoUrlChanged extends ProfileEvent{}
 
 class LocationChanged extends ProfileEvent{
   final GeoPoint location;

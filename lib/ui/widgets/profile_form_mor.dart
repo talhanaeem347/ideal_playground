@@ -85,10 +85,8 @@ class ProfileFormMor extends StatelessWidget {
                       onChanged: (value) => _profileBloc.add(
                         PhoneChanged(phone: value),
                       ),
-                      validator: (_) =>
-                          !validator.phone(state.user.phone.toString())
-                              ? AppStrings.invalidPhone
-                              : null,
+                      validator: (_) =>  state.user.phone.isNotEmpty ? AppStrings.invalidPhone : null,
+
                     ),
                     SizedBox(height: size.height * 0.01),
                     MyInputField(
@@ -97,7 +95,7 @@ class ProfileFormMor extends StatelessWidget {
                       onChanged: (value) => _profileBloc.add(
                         CountryChanged(country: value),
                       ),
-                      validator: (_) => state.user.country.isEmpty
+                      validator: (_) => state.user.country.isNotEmpty
                           ? AppStrings.invalidCountry
                           : null,
                     ),
@@ -108,7 +106,7 @@ class ProfileFormMor extends StatelessWidget {
                       onChanged: (value) => _profileBloc.add(
                         StateChanged(state: value),
                       ),
-                      validator: (_) => state.user.name.isEmpty
+                      validator: (_) => state.user.name.isNotEmpty
                           ? AppStrings.invalidState
                           : null,
                     ),
@@ -119,7 +117,7 @@ class ProfileFormMor extends StatelessWidget {
                       onChanged: (value) => _profileBloc.add(
                         CityChanged(city: value),
                       ),
-                      validator: (_) => state.user.city.isEmpty
+                      validator: (_) => state.user.city.isNotEmpty
                           ? AppStrings.invalidCity
                           : null,
                     ),
