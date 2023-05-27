@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserRepository {
-  // final FirebaseFirestore _fireStore;
+  final FirebaseFirestore _fireStore;
   final CollectionReference _userCollection;
   final FirebaseAuth _firebaseAuth;
 
@@ -11,7 +11,7 @@ class UserRepository {
     CollectionReference? userCollection,
     FirebaseAuth? firebaseAuth,
   })  :
-        // _fireStore = fireStore ?? FirebaseFirestore.instance,
+        _fireStore = fireStore ?? FirebaseFirestore.instance,
         _userCollection =
             userCollection ?? FirebaseFirestore.instance.collection('users'),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
