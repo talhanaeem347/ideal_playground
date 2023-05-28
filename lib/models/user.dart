@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 
-class User {
+class UserModel {
   String name = "";
-  String gender = "";
   String interestedIn = "";
   String phone = "";
+  String gender = "";
   String city = "";
   String state = "";
   String country = "";
   String photoUrl = "";
   String token = "";
-  DateTime dateOfBirth = DateTime(2000, 1, 1);
+  DateTime dateOfBirth = AppStrings.maxDate;
   GeoPoint location = const GeoPoint(0, 0);
   bool isOnline = false;
   bool isMarried = false;
   bool isOpen = true;
 
-  User({
+  UserModel({
     this.name = "",
     this.gender = "",
     this.phone = "",
@@ -34,7 +34,7 @@ class User {
     this.isOpen = true,
   }) : dateOfBirth = dateOfBirth ?? AppStrings.maxDate;
 
-  User.fromMap(Map<String, dynamic> json) {
+  UserModel.fromMap(Map<String, dynamic> json) {
     name = json['name'];
     phone = json['phone'];
     city = json['city'];
@@ -48,6 +48,8 @@ class User {
     interestedIn = json['interestedIn'];
     isMarried = json['isMarried'];
     isOpen = json['isOpen'];
+    gender = json['gender'];
+
   }
 
   Map<String, dynamic> toMap() {
@@ -65,6 +67,7 @@ class User {
     data['interestedIn'] = interestedIn;
     data['isMarried'] = isMarried;
     data['isOpen'] = isOpen;
+    data['gender'] = gender;
     return data;
   }
 

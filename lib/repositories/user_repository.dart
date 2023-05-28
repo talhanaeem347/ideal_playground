@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ideal_playground/models/user.dart';
+
 
 class UserRepository {
   // final FirebaseFirestore _fireStore;
@@ -10,7 +12,7 @@ class UserRepository {
   final FirebaseAuth _firebaseAuth;
 
   UserRepository({
-    FirebaseFirestore? fireStore,
+    // FirebaseFirestore? fireStore,
     CollectionReference? userCollection,
     FirebaseAuth? firebaseAuth,
   })  :
@@ -65,5 +67,9 @@ class UserRepository {
   Future<String> uploadProfilePicture(String uid, String url) async {
       final TaskSnapshot uploadTask = await FirebaseStorage.instance.ref("profile/$uid").putFile(File(url));
       return await uploadTask.ref.getDownloadURL();
+    }
+    Future<UserModel> getUserDetails(String uid) async {
+       DocumentSnapshot snapshot = await _userCollection.doc(uid).get();
+        return UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
     }
 }

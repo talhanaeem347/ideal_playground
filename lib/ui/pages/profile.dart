@@ -24,6 +24,8 @@ class Profile extends StatelessWidget {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: size.height * 0.02,

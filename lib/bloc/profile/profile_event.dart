@@ -103,7 +103,7 @@ class ProfileSaveButtonClicked extends ProfileEvent{
 }
 
 class ProfileSubmitted extends ProfileEvent{
-  final User user;
+  final UserModel user;
   const ProfileSubmitted({required this.user});
 
   @override
@@ -122,4 +122,12 @@ class IsOpenChanged extends ProfileEvent{
 
   @override
   List<Object> get props => [isOpen];
+}
+
+class ProfileLoad extends ProfileEvent{
+  final String userId;
+  const ProfileLoad({required this.userId});
+
+  @override
+  List<Object> get props => [userId];
 }

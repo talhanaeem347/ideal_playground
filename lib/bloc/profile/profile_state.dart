@@ -5,21 +5,22 @@ class ProfileState {
   bool isSuccess = false;
   bool isFailure = false;
   String filePhoto = "";
-  User user = User();
+  UserModel user = UserModel();
 
   get endValid =>
       user.phone.isNotEmpty &&
-          user.city.isNotEmpty &&
-          user.state.isNotEmpty &&
-          user.country.isNotEmpty &&
-          user.interestedIn.isNotEmpty;
+      user.city.isNotEmpty &&
+      user.state.isNotEmpty &&
+      user.country.isNotEmpty;
 
   bool get initialValid =>
-          filePhoto.isNotEmpty &&
-          user.name.isNotEmpty &&
-          user.gender.isNotEmpty &&
-          user.dateOfBirth != DateTime(2004, 1, 1) &&
-          user.interestedIn.isNotEmpty;
+      filePhoto.isNotEmpty &&
+      user.name.isNotEmpty &&
+      user.gender.isNotEmpty &&
+      user.dateOfBirth != AppStrings.maxDate &&
+      user.interestedIn.isNotEmpty;
+
+  bool isPhoneEmpty() => user.phone.isEmpty;
 
   ProfileState({
     required this.isSubmitting,
@@ -34,7 +35,7 @@ class ProfileState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
-      user: User(),
+      user: UserModel(),
       filePhoto: "",
     );
   }
@@ -82,23 +83,32 @@ class ProfileState {
     String? filePhoto,
   }) {
     return ProfileState(
-      isSubmitting: isSubmitting ?? false,
-      isSuccess: isSuccess ?? false,
-      isFailure: isFailure ?? false,
-      filePhoto: filePhoto ?? this.filePhoto,
-      user: User(
-    name: name ?? user.name,
-      gender: gender ?? user.gender,
-      phone: phone ?? user.phone,
-      city: city ?? user.city,
-      state: state ?? user.state,
-      country: country ?? user.country,
-      location: location ?? user.location,
-      dateOfBirth: dateOfBirth ?? user.dateOfBirth,
-      interestedIn: interestedIn ?? user.interestedIn,
-      isMarried: isMarried ?? user.isMarried,
-      isOpen: isOpen ?? user.isOpen,
-      photoUrl: photoUrl ?? user.photoUrl,
-    ));
+        isSubmitting: isSubmitting ?? false,
+        isSuccess: isSuccess ?? false,
+        isFailure: isFailure ?? false,
+        filePhoto: filePhoto ?? this.filePhoto,
+        user: UserModel(
+          name: name ?? user.name,
+          gender: gender ?? user.gender,
+          phone: phone ?? user.phone,
+          city: city ?? user.city,
+          state: state ?? user.state,
+          country: country ?? user.country,
+          location: location ?? user.location,
+          dateOfBirth: dateOfBirth ?? user.dateOfBirth,
+          interestedIn: interestedIn ?? user.interestedIn,
+          isMarried: isMarried ?? user.isMarried,
+          isOpen: isOpen ?? user.isOpen,
+          photoUrl: photoUrl ?? user.photoUrl,
+        ));
+  }
+  ProfileState updateUser({UserModel? user}){
+    return ProfileState(
+      isSubmitting: false,
+      isSuccess: false,
+      isFailure: false,
+      filePhoto: filePhoto,
+      user: user ?? this.user,
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -31,6 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileSaveButtonClicked>(_mapProfileSaveButtonClickedToState);
     on<IsMarriedChanged>(_mapIsMarriedChangedToState);
     on<IsOpenChanged>(_mapIsOpenChangedToState);
+    on<ProfileLoad>(_mapProfileLoadToState);
   }
 
   void _mapNameChangedToState(event, emit) {
@@ -63,8 +66,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       allowMultiple: false,
     );
     if (result != null) {
-
-    emit(state.update(filePhoto: result.files.single.path!));
+      emit(state.update(filePhoto: result.files.single.path!));
     }
   }
 
@@ -107,8 +109,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   void _mapProfileSubmittedToState(event, emit) async {
     emit(state.loading());
-    final uid = await _userRepository.getCurrentUser();
     try {
+      final uid = await _userRepository.getCurrentUser();
       await _userRepository.updateProfile(uid, event.user.toMap());
       emit(state.success());
     } catch (_) {
@@ -122,5 +124,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   void _mapIsOpenChangedToState(event, emit) {
     emit(state.update(isOpen: event.isOpen));
+  }
+
+  void _mapProfileLoadToState(event, emit) async {
+    emit(state.loading());
+    try {
+      final UserModel user = await _userRepository.getUserDetails(event.userId);
+      emit(state.updateUser(user: user));
+    } catch (e) {
+      emit(state.failure());
+    }
   }
 }

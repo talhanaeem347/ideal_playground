@@ -81,6 +81,7 @@ class AuthenticationBloc
     on<AppStarted>(_mapAppStartedToState);
     on<LoggedIn>(_mapAppLoggedInToState);
     on<InitialComplete>(_mapAppInitialToState);
+    on<ProfileComplete>(_mapProfileCompleteToState);
     on<LoggedOut>(_mapAppLoggedOutToState);
   }
 
@@ -132,5 +133,9 @@ class AuthenticationBloc
 
   void _mapAppInitialToState(event, emit) async {
     emit(ProfileInComplete(await _uid));
+  }
+
+  void _mapProfileCompleteToState( event,  emit) async {
+    emit(Authenticated(await _uid));
   }
 }

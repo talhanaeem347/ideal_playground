@@ -281,4 +281,9 @@ class _ProfileFormState extends State<ProfileForm> {
           }),
     );
   }
+  @override
+  void dispose() {
+    _profileBloc.close();
+    super.dispose();
+  }
 }
