@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
-import 'package:ideal_playground/ui/widgets/profile_form_mor.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:ideal_playground/ui/widgets/custom/my_input_field.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
+import 'custom/toses.dart';
 import 'gender.dart';
 
 class ProfileForm extends StatefulWidget {
@@ -74,44 +74,10 @@ class _ProfileFormState extends State<ProfileForm> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state.isFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Container(
-                  height: size.height * 0.08,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppStrings.failureMessage),
-                      const Icon(Icons.error),
-                    ],
-                  ),
-                ),
-              ),
-            );
+          showFailureTos(context);
         }
         if (state.isSubmitting) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Container(
-                  height: size.height * 0.08,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppStrings.submitting),
-                      const CircularProgressIndicator(),
-                    ],
-                  ),
-                ),
-              ),
-            );
+          showCircularProgress(context);
         }
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(InitialComplete());

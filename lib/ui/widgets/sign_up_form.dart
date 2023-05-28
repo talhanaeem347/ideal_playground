@@ -8,6 +8,8 @@ import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
+import 'custom/toses.dart';
+
 class SignUpForm extends StatefulWidget {
   final UserRepository _userRepository;
 
@@ -55,48 +57,14 @@ class _SignUpFormState extends State<SignUpForm> {
       bloc: _signUpBloc,
       listener: (BuildContext context, SignUpState state) {
         if (state.isFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Container(
-                  height: size.height * 0.08,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppStrings.signUpFailure),
-                      const Icon(Icons.error),
-                    ],
-                  ),
-                ),
-              ),
-            );
+          showFailureTos(context);
         }
         if (state.isSubmitting) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Container(
-                  height: size.height * 0.08,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppStrings.signingUp),
-                      const CircularProgressIndicator(),
-                    ],
-                  ),
-                ),
-              ),
-            );
+          showCircularProgress(context);
+
         }
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
-          Navigator.of(context).pop();
         }
       },
       child: BlocBuilder(
