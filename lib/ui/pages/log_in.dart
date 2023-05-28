@@ -23,12 +23,11 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocProvider<LogInBloc>(
         create: (context) => LogInBloc(userRepository: _userRepository),
-        child: Scaffold(
-            body: SafeArea(
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -64,7 +63,7 @@ class _LogInPageState extends State<LogInPage> {
               ],
             ),
           ),
-        )),
+        ),
       ),
     );
   }

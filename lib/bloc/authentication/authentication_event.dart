@@ -8,4 +8,6 @@ abstract class AuthenticationEvent {
 }
 class AppStarted extends AuthenticationEvent {}
 class LoggedIn extends AuthenticationEvent {}
+class InitialComplete extends AuthenticationEvent{}
+class ProfileComplete extends AuthenticationEvent{}
 class LoggedOut extends AuthenticationEvent {}

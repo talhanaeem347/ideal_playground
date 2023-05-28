@@ -1,82 +1,77 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_playground/utils/constants/app_Strings.dart';
 
-class User {
+class UserModel {
   String name = "";
-  String email = "";
-  String password = "";
-  String gender = "";
+  String interestedIn = "";
   String phone = "";
+  String gender = "";
   String city = "";
   String state = "";
   String country = "";
-  String zip = "";
   String photoUrl = "";
-  String uid = "";
   String token = "";
-  String createdAt = "";
-  String updatedAt = "";
+  DateTime dateOfBirth = AppStrings.maxDate;
   GeoPoint location = const GeoPoint(0, 0);
   bool isOnline = false;
+  bool isMarried = false;
+  bool isOpen = true;
 
-  User({
+  UserModel({
     this.name = "",
-    this.email = "",
-    this.password = "",
+    this.gender = "",
     this.phone = "",
     this.city = "",
     this.state = "",
     this.country = "",
-    this.zip = "",
     this.photoUrl = "",
-    this.uid = "",
     this.token = "",
-    this.createdAt = "",
-    this.updatedAt = "",
+    DateTime? dateOfBirth,
     this.location = const GeoPoint(0, 0),
     this.isOnline = true,
-  });
+    this.interestedIn = "",
+    this.isMarried = false,
+    this.isOpen = true,
+  }) : dateOfBirth = dateOfBirth ?? AppStrings.maxDate;
 
-   User.fromMap(Map<String, dynamic> json) {
+  UserModel.fromMap(Map<String, dynamic> json) {
     name = json['name'];
-    email = json['email'];
-    password = json['password'];
     phone = json['phone'];
     city = json['city'];
     state = json['state'];
     country = json['country'];
-    zip = json['zip'];
     photoUrl = json['photoUrl'];
-    uid = json['uid'];
     token = json['token'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
     location = json['location'];
     isOnline = json['isOnline'];
+    dateOfBirth = DateTime.parse(json['dateOfBirth']);
+    interestedIn = json['interestedIn'];
+    isMarried = json['isMarried'];
+    isOpen = json['isOpen'];
+    gender = json['gender'];
 
   }
 
-   Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
-    data['email'] = email;
-    data['password'] = password;
     data['phone'] = phone;
     data['city'] = city;
     data['state'] = state;
     data['country'] = country;
-    data['zip'] = zip;
     data['photoUrl'] = photoUrl;
-    data['uid'] = uid;
     data['token'] = token;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
     data['location'] = location;
     data['isOnline'] = isOnline;
+    data['dateOfBirth'] = dateOfBirth.toString();
+    data['interestedIn'] = interestedIn;
+    data['isMarried'] = isMarried;
+    data['isOpen'] = isOpen;
+    data['gender'] = gender;
     return data;
   }
+
   set onLine(bool value) {
     isOnline = value;
   }
-
-
 }

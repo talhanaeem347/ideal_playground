@@ -23,4 +23,10 @@ class AuthenticatedButNotSet extends AuthenticationState {
   @override
   List<Object> get props => [uid];
 }
+class ProfileInComplete extends AuthenticationState {
+  final String uid;
+  const ProfileInComplete(this.uid);
+  @override
+  List<Object> get props => [uid];
+}
 class UnAuthenticated extends AuthenticationState {}
