@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ideal_playground/models/user.dart';
@@ -15,8 +13,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc({required SearchRepository searchRepository})
       : _searchRepository = searchRepository,
         super(SearchInitialState()) {
-    on<SearchEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SearchEvent>(_mapEventToState);
+  }
+  void _mapEventToState(event, emit){
+
   }
 }
