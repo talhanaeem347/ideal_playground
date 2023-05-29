@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           } else if (state is ProfileInComplete) {
             return Profile(userRepository: _userRepository);
           } else if (state is Authenticated) {
-            return const Tabs();
+            return Tabs(userId: state.uid);
           } else if (state is UnAuthenticated) {
             return LogInPage(userRepository: _userRepository);
           } else {

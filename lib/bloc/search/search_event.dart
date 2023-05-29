@@ -30,11 +30,9 @@ class SelectUserEvent extends SearchEvent {
 class PassUserEvent extends SearchEvent {
   final String currentUserId;
   final String selectedUserId;
-  final String name;
-  final String photoUrl;
 
-  const PassUserEvent({required this.currentUserId, required this.selectedUserId, required this.name, required this.photoUrl});
+  const PassUserEvent({required this.currentUserId, required this.selectedUserId});
 
   @override
-  List<Object> get props => [currentUserId, selectedUserId, name, photoUrl];
+  List<Object> get props => [currentUserId, selectedUserId];
 }
