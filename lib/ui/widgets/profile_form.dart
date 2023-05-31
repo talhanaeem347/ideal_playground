@@ -66,6 +66,9 @@ class _ProfileFormState extends State<ProfileForm> {
     super.initState();
     _getLocation();
     _profileBloc = ProfileBloc(userRepository: _userRepository);
+    _userRepository.getCurrentUserId().then((uid) {
+      _profileBloc.add(ProfileLoad(userId: uid));
+    });
   }
 
   @override

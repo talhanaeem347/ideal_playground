@@ -32,7 +32,7 @@ class _ProfileFormMorState extends State<ProfileFormMor> {
   void initState() {
     super.initState();
     _profileBloc = ProfileBloc(userRepository: _userRepository);
-    _userRepository.getCurrentUser().then((uid) {
+    _userRepository.getCurrentUserId().then((uid) {
       _profileBloc.add(ProfileLoad(userId: uid));
     });
   }

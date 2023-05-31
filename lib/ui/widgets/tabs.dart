@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/pages/matches.dart';
 import 'package:ideal_playground/ui/pages/messages.dart';
@@ -38,7 +40,9 @@ class Tabs extends StatelessWidget {
             title: Text(AppStrings.appName),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                },
                 icon: Image.asset("assets/dotted_menu.jpg"),
               ),
             ],

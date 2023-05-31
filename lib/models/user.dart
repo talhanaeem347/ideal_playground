@@ -3,6 +3,7 @@ import 'package:ideal_playground/utils/constants/app_Strings.dart';
 
 class UserModel {
   String id = "";
+  String email = "";
   String name = "";
   String interestedIn = "";
   String phone = "";
@@ -20,6 +21,7 @@ class UserModel {
 
   UserModel({
     this.id = "",
+    this.email = "",
     this.name = "",
     this.gender = "",
     this.phone = "",
@@ -38,6 +40,7 @@ class UserModel {
 
   UserModel.fromMap(Map<String, dynamic> json) {
     id = json['id'];
+    email = json['email'];
     name = json['name'];
     phone = json['phone'];
     city = json['city'];
@@ -58,6 +61,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['email'] = email;
     data['name'] = name;
     data['phone'] = phone;
     data['city'] = city;

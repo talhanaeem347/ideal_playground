@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -22,7 +23,7 @@ class AuthenticationBloc
     on<LoggedOut>(_mapAppLoggedOutToState);
   }
 
-  Future<String> get _uid async => await _userRepository.getCurrentUser();
+  Future<String> get _uid async => await _userRepository.getCurrentUserId();
 
   AuthenticationState get initialState => UnInitialized();
 
@@ -32,7 +33,9 @@ class AuthenticationBloc
       final isLogIn = await _userRepository.isLoggedIn();
       if (isLogIn) {
         final isFirstTime = await _userRepository.isFirstTime(uid);
-        if (!isFirstTime) {
+        if (isFirstTime == null) {
+          emit(UnAuthenticated());
+        } else if (isFirstTime) {
           emit(AuthenticatedButNotSet(uid));
         } else if (await _userRepository.userNotComplete(uid)) {
           emit(ProfileInComplete(uid));
@@ -48,18 +51,20 @@ class AuthenticationBloc
   }
 
   void _mapAppLoggedInToState(event, emit) async {
-      final uid = await _uid;
+    final uid = await _uid;
     try {
       final isFirstTime = await _userRepository.isFirstTime(uid);
-      if (isFirstTime) {
+      if (isFirstTime == null) {
+        emit(UnAuthenticated());
+      } else if (isFirstTime) {
         emit(AuthenticatedButNotSet(uid));
       } else if (await _userRepository.userNotComplete(uid)) {
-        emit(ProfileInComplete( uid));
+        emit(ProfileInComplete(uid));
       } else {
         emit(Authenticated(uid));
       }
     } catch (_) {
-      emit(AuthenticatedButNotSet(uid));
+      emit(UnAuthenticated());
     }
   }
 
@@ -72,7 +77,9 @@ class AuthenticationBloc
     emit(ProfileInComplete(await _uid));
   }
 
-  void _mapProfileCompleteToState( event,  emit) async {
+  void _mapProfileCompleteToState(event, emit) async {
     emit(Authenticated(await _uid));
   }
+
+
 }

@@ -93,7 +93,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   void _mapProfileSaveButtonClickedToState(event, emit) async {
     emit(state.loading());
     try {
-      String uid = await _userRepository.getCurrentUser();
+      String uid = await _userRepository.getCurrentUserId();
       String url =
           await _userRepository.uploadProfilePicture(uid, state.filePhoto);
       await emit(state.update(photoUrl: url));
@@ -108,7 +108,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   void _mapProfileSubmittedToState(event, emit) async {
     emit(state.loading());
     try {
-      final uid = await _userRepository.getCurrentUser();
+      final uid = await _userRepository.getCurrentUserId();
       await _userRepository.updateProfile(uid, event.user.toMap());
       emit(state.success());
     } catch (_) {

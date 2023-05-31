@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/streams.dart';
@@ -7,6 +8,7 @@ import 'package:rxdart/transformers.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 part 'signup_event.dart';
+
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignUpEvent, SignUpState> {
@@ -46,15 +48,23 @@ class SignupBloc extends Bloc<SignUpEvent, SignUpState> {
   void _mapSignUpPasswordChangedToState(event, emit) async {
     emit(state.update(isValidPassword: validator.password(event.password)));
   }
-  void _mapConfirmPasswordChangedToState(event, emit) async {
-    emit(state.update(isConfirmPassword: event.confirmPassword == event.password));
-  }
 
+  void _mapConfirmPasswordChangedToState(event, emit) async {
+    emit(state.update(
+        isConfirmPassword: event.confirmPassword == event.password));
+  }
 
   void _mapSignUpWithEmailPasswordPressedToState(event, emit) async {
     emit(SignUpState.loading());
     try {
       await _userRepository.signUpWithEmail(event.email, event.password);
+      final user = await _userRepository.getCurrentUser();
+      _userRepository.createProfile(
+          user.uid,
+          UserModel(
+            id: user.uid,
+            email: user.email!,
+          ).toMap());
       emit(SignUpState.success());
     } catch (_) {
       emit(SignUpState.failure());
