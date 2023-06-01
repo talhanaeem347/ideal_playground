@@ -97,7 +97,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       String url =
           await _userRepository.uploadProfilePicture(uid, state.filePhoto);
       await emit(state.update(photoUrl: url));
-      await _userRepository.createProfile(uid, state.user.toMap());
+      await _userRepository.updateProfile(uid, state.user.toMap());
 
       emit(state.success());
     } catch (e) {

@@ -88,6 +88,8 @@ class ProfileState {
         isFailure: isFailure ?? false,
         filePhoto: filePhoto ?? this.filePhoto,
         user: UserModel(
+          id: user.id,
+          email: user.email,
           name: name ?? user.name,
           gender: gender ?? user.gender,
           phone: phone ?? user.phone,
