@@ -61,7 +61,6 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         if (state.isSubmitting) {
           showCircularProgress(context);
-
         }
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
@@ -125,8 +124,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   const SizedBox(height: 20),
                   SimpleButton(
                     onPressed: () {
-                      if (state.isConfirmPassword && isSignUpButtonEnabled(state)) {
-                      _onFormSubmitted(state);
+                      if (state.isConfirmPassword &&
+                          isSignUpButtonEnabled(state)) {
+                        _onFormSubmitted(state);
                       }
                     },
                     label: AppStrings.signUp,
@@ -161,7 +161,6 @@ class _SignUpFormState extends State<SignUpForm> {
     _signUpBloc.add(SignUpWithEmailPasswordPressed(
       email: _emailController.text,
       password: _passwordController.text,
-      confirmPassword: _confirmPasswordController.text,
     ));
   }
 

@@ -1,4 +1,3 @@
-
 part of 'signup_bloc.dart';
 
 @immutable
@@ -44,14 +43,14 @@ class SignUpSubmitted extends SignUpEvent {
 
   @override
   String toString() => 'SignUpSubmitted { email: $email, password: $password }';
-
 }
 
 class SignUpConfirmPasswordChanged extends SignUpEvent {
   final String confirmPassword;
   final String password;
 
-  const SignUpConfirmPasswordChanged({required this.confirmPassword, required this.password});
+  const SignUpConfirmPasswordChanged(
+      {required this.confirmPassword, required this.password});
 
   @override
   List<Object> get props => [confirmPassword, password];
@@ -64,17 +63,16 @@ class SignUpConfirmPasswordChanged extends SignUpEvent {
 class SignUpWithEmailPasswordPressed extends SignUpEvent {
   final String email;
   final String password;
-  final String confirmPassword;
 
   const SignUpWithEmailPasswordPressed(
-      {required this.email, required this.password, required this.confirmPassword});
+      {required this.email, required this.password});
 
   @override
-  List<Object> get props => [email, password, confirmPassword];
+  List<Object> get props => [email, password];
 
   @override
   String toString() =>
-      'SignUpWithEmailPasswordPressed { email: $email, password: $password , confirmPassword: $confirmPassword }';
+      'SignUpWithEmailPasswordPressed { email: $email, password: $password  }';
 }
 
 class LogInWithGooglePressed extends SignUpEvent {
