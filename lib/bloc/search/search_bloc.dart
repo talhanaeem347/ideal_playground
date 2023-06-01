@@ -16,11 +16,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SelectUserEvent>(_mapSelectUserEventToState);
     on<PassUserEvent>(_mapPassEventToState);
     on<LoadUserEvent>(_mapLoadUserEventToState);
-
-    on<SearchEvent>(_mapEventToState);
   }
 
-  void _mapEventToState(event, emit) {}
+
 
   void _mapSelectUserEventToState(event, emit) async {
     emit(SearchLoadingState());
@@ -49,7 +47,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(SearchLoadingState());
     final user = await _searchRepository.getUser(event.userId);
     final currentUser =
-        await _searchRepository.getUserInterests(event.currentUserId);
+        await _searchRepository.getUserInterests(event.userId);
     emit(SearchUserState(user: user, currentUser: currentUser));
   }
 }

@@ -8,19 +8,19 @@ Widget userGender(gender) {
       return Icon(
         FontAwesomeIcons.mars,
         color: AppColors.yellow,
-        size: 20,
+        size: 28,
       );
     case "Female":
       return Icon(
         FontAwesomeIcons.venus,
         color: AppColors.yellow,
-        size: 20,
+        size: 28,
       );
     default:
       return Icon(
         FontAwesomeIcons.marsAndVenus,
         color: AppColors.yellow,
-        size: 20,
+        size: 28,
       );
 
   }

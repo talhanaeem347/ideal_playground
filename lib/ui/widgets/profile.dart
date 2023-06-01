@@ -5,10 +5,10 @@ import 'package:ideal_playground/utils/constants/app_colors.dart';
 Widget profileWidget({size,
    photoUrl, child}) {
   return Padding(
-    padding: EdgeInsets.all(size.width * 0.02),
+    padding: EdgeInsets.all(size.width * 0.045),
     child: Container(
       height: size.height * 0.8,
-      width: size.width * 0.9,
+      width: size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: AppColors.white,
@@ -26,7 +26,7 @@ Widget profileWidget({size,
         children: [
           SizedBox(
             height: size.height * 0.8,
-            width: size.width * 0.9,
+            width: size.width * 0.9 ,
             child: ClipRRect(
               borderRadius:  BorderRadius.circular(20),
               child:PhotoWidget(photoUrl: photoUrl),
