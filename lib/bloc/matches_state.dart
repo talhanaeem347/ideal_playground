@@ -1,0 +1,19 @@
+part of 'matches_bloc.dart';
+
+abstract class MatchesState extends Equatable {
+  const MatchesState();
+  @override
+  List<Object> get props => [];
+}
+
+class MatchesLoading extends MatchesState {}
+
+class MatchesLoad extends MatchesState {
+  final Stream<QuerySnapshot> matchedList;
+  final Stream<QuerySnapshot> selectedList;
+
+  const MatchesLoad({required this.matchedList, required this.selectedList});
+
+  @override
+  List<Object> get props => [matchedList, selectedList];
+}

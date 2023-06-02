@@ -63,7 +63,9 @@ class MatchRepository {
         .doc(currentUserId)
         .delete();
   }
-  Future deleteUser({required String currentUserId, required String selectedUserId}) async {
+
+  Future deleteUser(
+      {required String currentUserId, required String selectedUserId}) async {
     await _fireStore
         .collection('users')
         .doc(currentUserId)
@@ -71,25 +73,30 @@ class MatchRepository {
         .doc(selectedUserId)
         .delete();
   }
-  selectUser({required String currentUserId, required String selectedUserId,required String currentUserPhoto, required selectedUserPhoto}) async {
-await _fireStore
+
+  acceptUser({
+    required UserModel currentUser,
+    required UserModel selectedUser,
+  }) async {
+    await _fireStore
         .collection('users')
-        .doc(currentUserId)
+        .doc(currentUser.id)
         .collection('matchedList')
-        .doc(selectedUserId)
+        .doc(selectedUser.id)
         .set({
-      'userId': selectedUserId,
-      'photoUrl': selectedUserPhoto,
+      'userId': selectedUser.id,
+      'photoUrl': selectedUser.photoUrl,
     });
     await _fireStore
         .collection('users')
-        .doc(selectedUserId)
+        .doc(selectedUser.id)
         .collection('matchedList')
-        .doc(currentUserId)
+        .doc(currentUser.id)
         .set({
-      'userId': currentUserId,
-      'photoUrl': currentUserPhoto,
+      'userId': currentUser.id,
+      'photoUrl': currentUser.photoUrl,
     });
-    return await deleteUser(currentUserId: currentUserId, selectedUserId: selectedUserId);
+    return await deleteUser(
+        currentUserId: currentUser.id, selectedUserId: selectedUser.id);
   }
 }
