@@ -14,13 +14,15 @@ class Tabs extends StatelessWidget {
   const Tabs({required userId, Key? key})
       : _userId = userId,
         super(key: key);
-  @override
-  Widget build(BuildContext context)  {
 
+  @override
+  Widget build(BuildContext context) {
     List<Widget> pages = [
-      const Matches(),
-      const Messages(),
       Search(userId: _userId),
+      Matches(
+        userId: _userId,
+      ),
+      const Messages(),
     ];
 
     return Theme(
@@ -53,13 +55,13 @@ class Tabs extends StatelessWidget {
               // Set the icon color of the selected tab
               tabs: const [
                 Tab(
+                  icon: Icon(Icons.search),
+                ),
+                Tab(
                   icon: Icon(Icons.favorite),
                 ),
                 Tab(
                   icon: Icon(Icons.message),
-                ),
-                Tab(
-                  icon: Icon(Icons.search),
                 ),
               ],
             ),
