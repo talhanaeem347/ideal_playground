@@ -8,11 +8,11 @@ abstract class MatchesState extends Equatable {
 
 class MatchesLoading extends MatchesState {}
 
-class MatchesLoad extends MatchesState {
+class MatchesLoaded extends MatchesState {
   final Stream<QuerySnapshot> matchedList;
   final Stream<QuerySnapshot> selectedList;
 
-  const MatchesLoad({required this.matchedList, required this.selectedList});
+  const MatchesLoaded({required this.matchedList, required this.selectedList});
 
   @override
   List<Object> get props => [matchedList, selectedList];

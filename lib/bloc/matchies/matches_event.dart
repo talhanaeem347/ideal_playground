@@ -26,6 +26,16 @@ class MatchesOpenChatEvent extends MatchesEvent {
   @override
   List<Object> get props => [currentUserId, selectedUserId];
 }
+class MatchesOpenCallEvent extends MatchesEvent {
+final String currentUserId;
+final String selectedUserId;
+
+const MatchesOpenCallEvent(
+{required this.currentUserId, required this.selectedUserId});
+
+@override
+List<Object> get props => [currentUserId, selectedUserId];
+}
 
 class MatchesDeleteUserEvent extends MatchesEvent {
   final String currentUserId;

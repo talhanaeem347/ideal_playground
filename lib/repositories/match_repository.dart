@@ -25,7 +25,7 @@ class MatchRepository {
 
   Future<UserModel> getUserDetails({required String userId}) async {
     final user = await _fireStore.collection('users').doc(userId).get();
-    return UserModel.fromMap(user as Map<String, dynamic>);
+    return UserModel.fromMap(user.data() as Map<String, dynamic>);
   }
 
   Future openChat(
@@ -98,5 +98,29 @@ class MatchRepository {
     });
     return await deleteUser(
         currentUserId: currentUser.id, selectedUserId: selectedUser.id);
+  }
+
+  openCall(
+      {required String currentUserId, required String selectedUserId}) async {
+    await _fireStore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('calls')
+        .doc(selectedUserId)
+        .set({
+      'userId': selectedUserId,
+      'lastCall': '',
+      'lastMessageTime': DateTime.now(),
+    });
+    await _fireStore
+        .collection('users')
+        .doc(selectedUserId)
+        .collection('calls')
+        .doc(currentUserId)
+        .set({
+      'userId': currentUserId,
+      'lastCall': '',
+      'lastMessageTime': DateTime.now(),
+    });
   }
 }
