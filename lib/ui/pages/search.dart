@@ -65,8 +65,104 @@ class _SearchState extends State<Search> {
             user = state.user;
             _currentUser = state.currentUser;
             getDifferance(user.location);
+            return profileWidget(
+              size: size,
+              photoUrl: user.photoUrl,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        userGender(user.gender),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "${user.name.toUpperCase()}, ${DateTime.now().year - user.dateOfBirth.toUtc().year} years",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: size.height * 0.04,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: AppColors.yellow,
+                          size: 28,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "${differance / 1000} km away",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: size.height * 0.03,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          iconWidget(
+                              icon: EvaIcons.flash,
+                              size: size.height * 0.04,
+                              color: AppColors.yellow,
+                              onTap: () {}),
+                          iconWidget(
+                              icon: Icons.clear,
+                              size: size.height * 0.04,
+                              color: AppColors.blue,
+                              onTap: () {
+                                _searchBloc.add(PassUserEvent(
+                                    currentUserId: _currentUser.id,
+                                    selectedUserId: user.id));
+                              }),
+                          iconWidget(
+                              icon: Icons.favorite,
+                              size: size.height * 0.04,
+                              color: AppColors.red,
+                              onTap: () {
+                                _searchBloc.add(
+                                  SelectUserEvent(
+                                      currentUserId: _currentUser.id,
+                                      selectedUserId: user.id,
+                                      name: _currentUser.name,
+                                      photoUrl: _currentUser.photoUrl),
+                                );
+                              }),
+                          iconWidget(
+                              icon: Icons.line_style,
+                              size: size.height * 0.04,
+                              color: AppColors.black.withOpacity(0.9),
+                              onTap: () {}),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              ),
+            );
+
           }
-          if (user.location == null) {
             return Center(
               child: Text(
                 "No One Here",
@@ -77,103 +173,7 @@ class _SearchState extends State<Search> {
               ),
             );
           }
-          return profileWidget(
-            size: size,
-            photoUrl: user.photoUrl,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      userGender(user.gender),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "${user.name.toUpperCase()}, ${DateTime.now().year - user.dateOfBirth.toUtc().year} years",
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: size.height * 0.04,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: AppColors.yellow,
-                        size: 28,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "${differance / 1000} km away",
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: size.height * 0.03,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        iconWidget(
-                            icon: EvaIcons.flash,
-                            size: size.height * 0.04,
-                            color: AppColors.yellow,
-                            onTap: () {}),
-                        iconWidget(
-                            icon: Icons.clear,
-                            size: size.height * 0.04,
-                            color: AppColors.blue,
-                            onTap: () {
-                              _searchBloc.add(PassUserEvent(
-                                  currentUserId: _currentUser.id,
-                                  selectedUserId: user.id));
-                            }),
-                        iconWidget(
-                            icon: Icons.favorite,
-                            size: size.height * 0.04,
-                            color: AppColors.red,
-                            onTap: () {
-                              _searchBloc.add(
-                                SelectUserEvent(
-                                    currentUserId: _currentUser.id,
-                                    selectedUserId: user.id,
-                                    name: user.name,
-                                    photoUrl: user.photoUrl),
-                              );
-                            }),
-                        iconWidget(
-                            icon: Icons.line_style,
-                            size: size.height * 0.04,
-                            color: AppColors.black.withOpacity(0.9),
-                            onTap: () {}),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+
       ),
     );
   }
