@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ideal_playground/models/chat_roam_model.dart';
 import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/match_repository.dart';
 
@@ -46,9 +47,11 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       MatchesOpenChatEvent event, Emitter<MatchesState> emit) async {
     emit(MatchesLoading());
 
-    await _matchRepository.openChat(
+    final chatRoam = await _matchRepository.openChat(
         currentUserId: event.currentUserId,
-        selectedUserId: event.selectedUserId);
+        selectedUserId: event.selectedUserId).then((chatRoam){
+        emit(ChatOpenState(chatRoam:chatRoam,userId:event.currentUserId));
+    });
   }
 
   void _mapMatchesDeleteUserEventToState(

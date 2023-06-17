@@ -73,47 +73,53 @@ void profileDialog(
                       mainAxisAlignment:
                       MainAxisAlignment.spaceAround,
                       children: [
-
                         isMatched ? iconWidget(
                             icon: Icons.chat,
                             size: size.height * 0.04,
                             color: AppColors.yellow,
-                            onTap: () {})
+                            onTap: () {
+                              Navigator.pop(context);
+                              matchesBloc.add(
+                                  MatchesOpenChatEvent(
+                                    currentUserId: currentUser.id,
+                                    selectedUserId: user.id,
+                                  ));
+                            })
                             : iconWidget(
                             icon: Icons.clear,
                             size: size.height * 0.04,
                             color: AppColors.blue,
                             onTap: () {
+                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesDeleteUserEvent(
                                     currentUserId: currentUser.id,
                                     selectedUserId: user.id,
                                   ));
-                              Navigator.pop(context);
                             }),
                         isMatched ? iconWidget(
                             icon: Icons.call_rounded,
                             size: size.height * 0.04,
                             color: AppColors.green,
                             onTap: () {
+                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesOpenCallEvent(
                                     currentUserId: currentUser.id,
                                     selectedUserId: user.id,
                                   ));
-                              Navigator.pop(context);
                             })
                             : iconWidget(
                             icon: Icons.favorite,
                             size: size.height * 0.04,
                             color: AppColors.red,
                             onTap: () {
+                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesAcceptUserEvent(
                                     currentUser: currentUser,
                                     selectedUser: user,
                                   ));
-                              Navigator.pop(context);
                             }),
 
                       ],
