@@ -19,10 +19,8 @@ class Tabs extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> pages = [
       Search(userId: _userId),
-      Matches(
-        userId: _userId,
-      ),
-      const Messages(),
+      Matches(userId: _userId),
+      Messages(userId: _userId),
     ];
 
     return Theme(

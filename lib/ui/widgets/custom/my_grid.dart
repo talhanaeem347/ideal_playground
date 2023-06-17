@@ -52,7 +52,7 @@ Widget myGridView({
                         size: size,
                         user: user,
                         differance: differance,
-                        isMatched: emptyText != "No Matches",
+                        isMatched: emptyText.contains("Matches") ,
                         matchesBloc: matchesBloc,
                         currentUser: currentUser,
                       );

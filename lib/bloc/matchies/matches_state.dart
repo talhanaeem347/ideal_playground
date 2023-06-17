@@ -17,3 +17,12 @@ class MatchesLoaded extends MatchesState {
   @override
   List<Object> get props => [matchedList, selectedList];
 }
+
+class ChatOpenState extends MatchesState {
+  final ChatRoamModel chatRoam;
+  final String userId;
+  const ChatOpenState({required this.chatRoam,required this.userId});
+  @override
+  List<Object> get props => [chatRoam];
+
+}
