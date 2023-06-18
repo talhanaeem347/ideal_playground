@@ -67,7 +67,7 @@ class MessageRepository {
     return _fireStore
         .collection('chatRoams')
         .where("users.$userId", isEqualTo: true)
-        .orderBy('time', descending: true)
+        // .orderBy('lastMessage.time', descending: true)
         .snapshots();
   }
 
@@ -79,5 +79,12 @@ class MessageRepository {
     DocumentSnapshot snapshot =
         await _fireStore.collection('users').doc(userId).get();
     return UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+  }
+
+  void blockUser({required String userId, required String chatRoamId}) async {
+    await _fireStore
+        .collection('chatRoams')
+        .doc(chatRoamId)
+        .update({'users.$userId': false});
   }
 }

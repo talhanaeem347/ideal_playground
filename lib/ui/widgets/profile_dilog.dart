@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_playground/bloc/matchies/matches_bloc.dart';
 import 'package:ideal_playground/models/user.dart';
+import 'package:ideal_playground/repositories/match_repository.dart';
+import 'package:ideal_playground/ui/pages/chat_roam.dart';
+import 'package:ideal_playground/ui/widgets/page_turn.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
 import 'iconWidget.dart';
@@ -9,6 +12,8 @@ import 'userGender.dart';
 
 void profileDialog(
     {required BuildContext context, required Size size, required UserModel user, required int differance, required bool isMatched, required MatchesBloc matchesBloc, required UserModel currentUser}) {
+  MatchRepository matchRepository = MatchRepository();
+
   showDialog(
       context: context,
       builder: (context) {
@@ -77,13 +82,16 @@ void profileDialog(
                             icon: Icons.chat,
                             size: size.height * 0.04,
                             color: AppColors.yellow,
-                            onTap: () {
-                              Navigator.pop(context);
-                              matchesBloc.add(
-                                  MatchesOpenChatEvent(
-                                    currentUserId: currentUser.id,
-                                    selectedUserId: user.id,
-                                  ));
+                            onTap: () async {
+                              final chatRoam = await matchRepository.openChat(currentUserId: currentUser.id, selectedUserId: user.id);
+                              pageTurn(context:context, page: ChatRoam(chatRoam:chatRoam,user: user));
+
+                              // Navigator.pop(context);
+                              // matchesBloc.add(
+                              //     MatchesOpenChatEvent(
+                              //       currentUserId: currentUser.id,
+                              //       selectedUserId: user.id,
+                              //     ));
                             })
                             : iconWidget(
                             icon: Icons.clear,

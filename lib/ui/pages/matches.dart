@@ -44,9 +44,6 @@ class _MatchesState extends State<Matches> {
               child: CircularProgressIndicator(),
             );
           }
-          if(state is ChatOpenState) {
-            pageTurn(context:context, page: ChatRoam(chatRoam: state.chatRoam,userId: state.userId));
-          }
 
           if (state is MatchesLoaded) {
             return Container(
