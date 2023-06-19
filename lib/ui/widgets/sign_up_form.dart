@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/bloc/signup/signup_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
+import 'package:ideal_playground/ui/pages/log_in.dart';
 import 'package:ideal_playground/ui/widgets/custom/my_input_field.dart';
 import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
@@ -73,7 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
             scrollDirection: Axis.vertical,
             child: Container(
               color: AppColors.scaffoldBackgroundColor,
-              height: size.height * 0.65,
+              // height: size.height * 0.65,
               width: size.width,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -136,7 +137,26 @@ class _SignUpFormState extends State<SignUpForm> {
                     textColor: AppColors.yellow,
                     width: size.width * 0.5,
                     height: size.height * 0.08,
-                  )
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(                      MaterialPageRoute(
+                          builder: (context) => LogInPage(
+                              userRepository: _userRepository)));
+                    },
+                    child: Text(
+                      AppStrings.alreadyHaveAccount,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: AppColors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),

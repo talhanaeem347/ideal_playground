@@ -44,24 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   SignUpForm(userRepository: _userRepository),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(                      MaterialPageRoute(
-                          builder: (context) => LogInPage(
-                              userRepository: _userRepository)));
-                    },
-                    child: Text(
-                      AppStrings.alreadyHaveAccount,
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: AppColors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+
 
                 ],
               ),
