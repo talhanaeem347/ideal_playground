@@ -135,8 +135,8 @@ class _ChatWidgetState extends State<ChatWidget> {
               pageTurn(
                 context: context,
                 page: ChatRoam(
-                  chatRoam: _chatRoam,
-                  user: user,
+                  matchId: user.id,
+                  userId: widget.userId,
                 ),
               );
             },

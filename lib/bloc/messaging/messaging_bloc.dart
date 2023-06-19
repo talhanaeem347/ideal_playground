@@ -15,14 +15,10 @@ class MessagingBloc extends Bloc<MessagingEvent, MessagingState> {
     on<SendMessage>(_sendMessage);
   }
 
-  void _loadChatRoam(LoadChatRoam event, Emitter<MessagingState> emit) {
+  void _loadChatRoam(LoadChatRoam event, Emitter<MessagingState> emit) async {
     emit(MessagingLoading());
-
     final messages =  _messagingRepository.getMessages(chatRoamId: event.chatRoamId);
-
     emit(MessagingLoaded(messages: messages));
-
-
 
   }
 

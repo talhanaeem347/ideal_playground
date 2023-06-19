@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:ideal_playground/models/chat_roam_model.dart';
 import 'package:ideal_playground/models/message.dart';
+import 'package:ideal_playground/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 class MessagingRepository {
@@ -20,6 +22,34 @@ class MessagingRepository {
         _messageCollectionRef = messageCollectionRef ??
             FirebaseFirestore.instance.collection('chatRoams'),
         _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance;
+
+  Future<String> getChatRoam({required String userId, required String matchedUserId}) async {
+    QuerySnapshot snapshot = await _messageCollectionRef
+        .where("users.$userId", isEqualTo: true)
+        .where("users.$matchedUserId", isEqualTo: true)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final chatRoam = snapshot.docs[0].data() as Map<String, dynamic>;
+      return chatRoam['chatRoamId'];
+    } else {
+      ChatRoamModel newChatRoam = ChatRoamModel(
+          chatRoamId: uuid,
+          users: {userId: true, matchedUserId: true},
+          lastMessage: Message(
+            id: "",
+            type: "text",
+            content: "",
+            senderId: "",
+            isSeen: false,
+            time: Timestamp.fromDate(DateTime.now()),
+          ));
+      await _messageCollectionRef
+          .doc(newChatRoam.chatRoamId)
+          .set(newChatRoam.toMap());
+      return newChatRoam.chatRoamId;
+    }
+  }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(
       {required String chatRoamId}) {
@@ -87,7 +117,12 @@ Future<void> updateMessageSeen(
 
   Future<void> deleteChatRoam({required String chatRoamId}) async {
     await _messageCollectionRef.doc(chatRoamId).delete();
+
   }
 
+  Future<UserModel> getUser({required String userId}) async {
+    DocumentSnapshot snapshot = await _firestore.collection('users').doc(userId).get();
+    return UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+  }
 
 }
