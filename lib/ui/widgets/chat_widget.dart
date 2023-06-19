@@ -203,6 +203,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     ],
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const SizedBox(height: 5),
                       Text(
