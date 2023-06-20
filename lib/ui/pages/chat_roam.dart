@@ -90,13 +90,13 @@ class _ChatRoamState extends State<ChatRoam> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage(user!.photoUrl),
+                          image: NetworkImage(user.photoUrl),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     const SizedBox(width: 15),
-                    Text(user!.name),
+                    Text(user.name),
                   ],
                 ),
               ),
@@ -115,9 +115,13 @@ class _ChatRoamState extends State<ChatRoam> {
                             if (snapShot.hasData) {
                               final list = snapShot.data!.docs;
                               return ListView.builder(
+                                reverse: true,
                                   itemCount: list.length,
                                   itemBuilder: (context, index) {
+
                                     return messageWidget(
+                                      messagingBloc: _messagingBloc,
+                                        chatRoamId: chatRoamId,
                                         data: list[index],
                                         size: size,
                                         userId: userId);
@@ -170,7 +174,7 @@ class _ChatRoamState extends State<ChatRoam> {
                               _messagingBloc.add(SendMessage(
                                 content: str,
                                 chatRoamId: chatRoamId,
-                                senderId: user!.id,
+                                senderId: userId,
                                 type: 'text',
                               ));
                             },

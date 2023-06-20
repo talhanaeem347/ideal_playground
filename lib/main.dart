@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           } else if (state is ProfileInComplete) {
             return Profile(userRepository: _userRepository);
           } else if (state is Authenticated) {
-            LocationPermissionHelper.checkPermission();
+            // LocationPermissionHelper.checkPermission();
             return Tabs(userId: state.uid);
           } else {
             return const Splash();

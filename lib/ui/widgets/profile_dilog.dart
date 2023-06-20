@@ -83,16 +83,13 @@ void profileDialog(
                             size: size.height * 0.04,
                             color: AppColors.yellow,
                             onTap: () async {
-                              // final chatRoam = await matchRepository.openChat(currentUserId: currentUser.id, selectedUserId: user.id);
-                              // pageTurn(context:context, page: ChatRoam(chatRoam:chatRoam,user: user));
                               pageTurn(context:context, page: ChatRoam(userId: currentUser.id, matchId: user.id,));
-
-                              // Navigator.pop(context);
-                              // matchesBloc.add(
-                              //     MatchesOpenChatEvent(
-                              //       currentUserId: currentUser.id,
-                              //       selectedUserId: user.id,
-                              //     ));
+                              Navigator.pop(context);
+                              matchesBloc.add(
+                                  MatchesOpenChatEvent(
+                                    currentUserId: currentUser.id,
+                                    selectedUserId: user.id,
+                                  ));
                             })
                             : iconWidget(
                             icon: Icons.clear,

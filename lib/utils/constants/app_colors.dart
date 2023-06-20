@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_playground/helpers/theme_helper.dart';
 
 class AppColors{
   static AppColors i = AppColors();
@@ -12,5 +13,5 @@ class AppColors{
   static Color get transparent => Colors.transparent;
   static MaterialColor get primarySwatch =>  Colors.blue;
 
-  static Color get scaffoldBackgroundColor => const Color(0xFF021229);
+  static Color get scaffoldBackgroundColor => ThemeHelper.isDark ? const Color(0xFF021229) :  Colors.brown.shade500;
 }

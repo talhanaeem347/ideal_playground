@@ -25,7 +25,7 @@ Widget profileWidget({size,
         alignment: Alignment.bottomCenter,
         children: [
           SizedBox(
-            height: size.height * 0.8,
+            height: size.height,
             width: size.width * 0.9 ,
             child: ClipRRect(
               borderRadius:  BorderRadius.circular(20),

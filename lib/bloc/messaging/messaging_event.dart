@@ -26,6 +26,17 @@ class SendMessage extends MessagingEvent{
   List<Object> get props => [content, chatRoamId, senderId,type];
 }
 
+class UpdateMessage extends MessagingEvent{
+  final String messageId;
+  final String chatRoamId;
+
+  const UpdateMessage({required this.messageId, required this.chatRoamId});
+
+  @override
+  List<Object> get props => [messageId, chatRoamId];
+}
+
+
 
 
 
