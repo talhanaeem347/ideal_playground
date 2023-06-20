@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_playground/helpers/pick_date.dart';
+import 'package:ideal_playground/helpers/pick_image.dart';
 import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
@@ -59,13 +60,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   void _mapPhotoUrlChangedToState(event, emit) async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowMultiple: false,
-    );
-    if (result != null) {
-      emit(state.update(filePhoto: result.files.single.path!));
-    }
+
+    final url = await PickImage.getImage();
+      //   .then((value) {
+      if(url == null) return;
+      emit(state.update(filePhoto: url));
+    // });
   }
 
   void _mapLocationChangedToState(event, emit) {
@@ -73,13 +73,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   void _mapDateOfBirthChangedToState(event, emit) async {
-    final value = await showDatePicker(
-      context: event.context,
-      initialDate: DateTime(state.user.dateOfBirth.year - 1),
-      firstDate: AppStrings.minDate,
-      lastDate: AppStrings.maxDate,
-    );
 
+      final value = await PickDate.getDate(event.context,DateTime (state.user.dateOfBirth.year - 1));
     if (value != null) {
       emit(state.update(
           dateOfBirth: DateTime(value.year, value.month, value.day)));

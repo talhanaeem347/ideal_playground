@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
+import 'package:ideal_playground/helpers/location_permetion.dart';
 import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,31 +34,15 @@ class _ProfileFormState extends State<ProfileForm> {
   UserRepository get _userRepository => widget._userRepository;
 
   _getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
+    bool permission = await LocationPermissionHelper.checkPermission();
     Position position = await Geolocator.getCurrentPosition();
-    _profileBloc.add(
-      LocationChanged(
-        location: GeoPoint(position.latitude, position.longitude),
-      ),
-    );
+    if(permission) {
+      _profileBloc.add(
+        LocationChanged(
+          location: GeoPoint(position.latitude, position.longitude),
+        ),
+      );
+    }
     return position;
   }
 
@@ -101,12 +86,18 @@ class _ProfileFormState extends State<ProfileForm> {
                     SizedBox(
                       height: size.height * 0.25,
                       width: size.width,
-                      child: CircleAvatar(
-                        radius: size.width * 0.2,
-                        backgroundColor: AppColors.red,
-                        backgroundImage: state.filePhoto.isNotEmpty
-                            ? FileImage(File(state.filePhoto))
-                            : null,
+                      child : Container(
+                        height: size.width * 0.5,
+
+                        margin: EdgeInsets.symmetric(horizontal: size.width * 0.25),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.red,
+                         image: state.filePhoto.isNotEmpty ? DecorationImage(
+                            image: FileImage(File(state.filePhoto)) ,
+                            fit: BoxFit.cover,
+                         ): null,
+                        ),
                         child: GestureDetector(
                             child: state.filePhoto.isEmpty
                                 ? Icon(
@@ -174,20 +165,20 @@ class _ProfileFormState extends State<ProfileForm> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            genderWidget(FontAwesomeIcons.venus, "Female", size,
+                            genderWidget(FontAwesomeIcons.venus, AppStrings.female, size,
                                 state.user.gender, () {
                               _profileBloc
-                                  .add(const GenderChanged(gender: "Female"));
+                                  .add( GenderChanged(gender: AppStrings.female));
                             }),
-                            genderWidget(FontAwesomeIcons.mars, "Male", size,
+                            genderWidget(FontAwesomeIcons.mars, AppStrings.male, size,
                                 state.user.gender, () {
                               _profileBloc
-                                  .add(const GenderChanged(gender: "Male"));
+                                  .add( GenderChanged(gender: AppStrings.male));
                             }),
-                            genderWidget(FontAwesomeIcons.marsAndVenus, "Other",
+                            genderWidget(FontAwesomeIcons.marsAndVenus, AppStrings.other,
                                 size, state.user.gender, () {
                               _profileBloc
-                                  .add(const GenderChanged(gender: "Other"));
+                                  .add( GenderChanged(gender: AppStrings.other));
                             }),
                           ],
                         )
@@ -206,20 +197,20 @@ class _ProfileFormState extends State<ProfileForm> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            genderWidget(FontAwesomeIcons.venus, "Female", size,
+                            genderWidget(FontAwesomeIcons.venus, AppStrings.female, size,
                                 state.user.interestedIn, () {
-                              _profileBloc.add(const InterestedInChanged(
-                                  interestedIn: "Female"));
+                              _profileBloc.add( InterestedInChanged(
+                                  interestedIn: AppStrings.female));
                             }),
-                            genderWidget(FontAwesomeIcons.mars, "Male", size,
+                            genderWidget(FontAwesomeIcons.mars, AppStrings.male, size,
                                 state.user.interestedIn, () {
-                              _profileBloc.add(const InterestedInChanged(
-                                  interestedIn: "Male"));
+                              _profileBloc.add( InterestedInChanged(
+                                  interestedIn: AppStrings.male));
                             }),
-                            genderWidget(FontAwesomeIcons.marsAndVenus, "Other",
+                            genderWidget(FontAwesomeIcons.marsAndVenus, AppStrings.other,
                                 size, state.user.interestedIn, () {
-                              _profileBloc.add(const InterestedInChanged(
-                                  interestedIn: "Other"));
+                              _profileBloc.add(InterestedInChanged(
+                                  interestedIn: AppStrings.other));
                             }),
                           ],
                         ),

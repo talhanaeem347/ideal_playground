@@ -1,6 +1,9 @@
 class AppStrings{
   static AppStrings i = AppStrings();
 
+
+
+
   static String get email => "Email";
   static String get password => "Password";
   static String get confirmPassword => "Confirm Password";
@@ -42,7 +45,11 @@ class AppStrings{
   static String get yes => "Yes";
   static String get no => "No";
   static String get isOpenForRelationship => "Open for relationship?";
-
+  static String locationServicesDisabled = 'Location services are disabled.';
+  static String locationPermissionsDenied = "Location permissions are denied";
+  static String get female => "Female";
+  static String get male => "Male";
+  static String get other => "Other";
 
 
 }
