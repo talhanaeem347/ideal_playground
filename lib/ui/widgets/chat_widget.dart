@@ -1,88 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:ideal_playground/models/chat_roam_model.dart';
-// import 'package:ideal_playground/repositories/message_repository.dart';
-// import 'package:ideal_playground/ui/pages/chat_roam.dart';
-//
-// class ChatWidget extends StatefulWidget {
-//   final ChatRoamModel chatRoam;
-//   final String userId;
-//
-//   const ChatWidget({Key? key, required this.chatRoam, required this.userId})
-//       : super(key: key);
-//
-//   @override
-//   State<ChatWidget> createState() => _ChatWidgetState();
-// }
-//
-// class _ChatWidgetState extends State<ChatWidget> {
-//   final MessageRepository _messageRepository = MessageRepository();
-//
-//   get _chatRoam => widget.chatRoam;
-//
-//   get _userId => _chatRoam.users.keys
-//       .toList()
-//       .firstWhere((element) => element != widget.userId);
-//
-//   get user => _messageRepository.getUser(userId: _userId);
-//
-//   getDetails() async {
-//     final _user = await user;
-//     final _lastMessage = _chatRoam.lastMessage;
-//     return {'user': _user, 'lastMessage': _lastMessage};
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       future: getDetails(),
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           final user = snapshot.data['user'];
-//           final lastMessage = snapshot.data['lastMessage'];
-//           return ListTile(
-//             onTap: () {
-//               Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) => ChatRoam(
-//                           chatRoam: _chatRoam, userId: widget.userId)));
-//             },
-//             onLongPress: () {
-//               showDialog(
-//                   context: context,
-//                   builder: (context) => AlertDialog(
-//                         title: const Text('Block User'),
-//                         content: const Text(
-//                             'Are you sure you want to block this User?'),
-//                         actions: [
-//                           TextButton(
-//                               onPressed: () {
-//                                 Navigator.pop(context);
-//                               },
-//                               child: const Text('No')),
-//                           TextButton(
-//                               onPressed: () {
-//                                 print("No");
-//                               },
-//                               child: const Text('Yes')),
-//                         ],
-//                       ));
-//             },
-//             leading: CircleAvatar(
-//               backgroundImage: NetworkImage(user.profileImage),
-//             ),
-//             title: Text(user.name),
-//             subtitle: Text(
-//                 lastMessage != null ? lastMessage.message : 'No messages yet'),
-//           );
-//         }
-//         return const Center(
-//           child: CircularProgressIndicator(),
-//         );
-//       },
-//     );
-//   }
-// }
 
 import 'package:flutter/material.dart';
 import 'package:ideal_playground/bloc/message/message_bloc.dart';
@@ -163,7 +78,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 60,
               decoration: BoxDecoration(
-                color: user.isOnline ? AppColors.grey.withOpacity(0.3) :AppColors.grey.withOpacity(0.2),
+                color: user.isOnline ? AppColors.white.withOpacity(0.3) :AppColors.white.withOpacity(0.2),
                 border: Border(
                   bottom: BorderSide(
                     color: AppColors.black,

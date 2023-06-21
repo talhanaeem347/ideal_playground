@@ -92,4 +92,20 @@ class SearchRepository {
 
     return UserModel();
   }
+
+  void choseUser({required String currentUserId, required String  selectedUserId}) {
+     _fireStore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('chosenList')
+        .doc(selectedUserId)
+        .set({});
+     _fireStore
+        .collection('users')
+        .doc(selectedUserId)
+        .collection('chosenList')
+        .doc(currentUserId)
+        .set({});
+  }
+
 }

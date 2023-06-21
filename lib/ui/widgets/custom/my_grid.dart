@@ -23,7 +23,7 @@ Widget myGridView({
         if (snapshot.hasData) {
           if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text(emptyText),
+              child: Text(emptyText,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
             );
           }
           final users = snapshot.data!.docs;
@@ -88,7 +88,7 @@ Widget myGridView({
           );
         }
         return const Center(
-          child: Text("data found"),
+          child: Text("data found",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
         );
       });
 }

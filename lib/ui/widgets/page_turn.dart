@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void pageTurn({required BuildContext context, required Widget page,}) {
+Future<void> pageTurn({required BuildContext context, required Widget page,}) async {
 Navigator.push(
     context,
     MaterialPageRoute(
