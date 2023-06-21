@@ -83,9 +83,6 @@ class _MessagesState extends State<Messages> {
                 return const Center(
                   child: Text("ّYou Have No Messages"),
                 );
-                // return const Center(
-                //   child: CircularProgressIndicator(),
-                // );
               });
         }
         return const Center(
@@ -94,12 +91,4 @@ class _MessagesState extends State<Messages> {
       },
     );
   }
-//   return Scaffold(
-//     body: const Center(child: Text("Messages")),
-//     floatingActionButton: FloatingActionButton(
-//       onPressed: () {},
-//       child: const Icon(Icons.search),
-//     ),
-//   );
-// }
 }

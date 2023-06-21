@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
-import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/pages/matches.dart';
 import 'package:ideal_playground/ui/pages/messages.dart';
 import 'package:ideal_playground/ui/pages/search.dart';
+import 'package:ideal_playground/ui/pages/settings.dart';
+import 'package:ideal_playground/ui/widgets/page_turn.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
@@ -23,25 +22,17 @@ class Tabs extends StatelessWidget {
       Messages(userId: _userId),
     ];
 
-    return Theme(
-      data: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.scaffoldBackgroundColor,
-          foregroundColor: AppColors.yellow,
-        ),
-        primaryColor: AppColors.scaffoldBackgroundColor,
-        hintColor: AppColors.yellow,
-      ),
-      child: DefaultTabController(
+    return  DefaultTabController(
         length: pages.length,
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(AppStrings.appName),
+            title: Text(AppStrings.appName,),
             actions: [
               IconButton(
                 onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                  pageTurn(context: context, page: Settings(userId:_userId));
+
                 },
                 icon: Image.asset("assets/dotted_menu.jpg"),
               ),
@@ -68,7 +59,7 @@ class Tabs extends StatelessWidget {
             children: pages,
           ),
         ),
-      ),
+      
     );
   }
 }

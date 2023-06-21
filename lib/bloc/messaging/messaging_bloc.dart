@@ -13,6 +13,7 @@ class MessagingBloc extends Bloc<MessagingEvent, MessagingState> {
   MessagingBloc({required MessagingRepository messagingRepository}) :_messagingRepository = messagingRepository, super(MessagingInitial()) {
     on<LoadChatRoam>(_loadChatRoam);
     on<SendMessage>(_sendMessage);
+    on<UpdateMessage>(_updateMessage);
   }
 
   void _loadChatRoam(LoadChatRoam event, Emitter<MessagingState> emit) async {
@@ -28,4 +29,10 @@ class MessagingBloc extends Bloc<MessagingEvent, MessagingState> {
     emit(MessagingLoaded(messages: messages));
   }
 
+
+  FutureOr<void> _updateMessage(UpdateMessage event, Emitter<MessagingState> emit) {
+    _messagingRepository.updateMessageSeen(chatRoamId: event.chatRoamId, messageId: event.messageId);
+    // final messages =  _messagingRepository.getMessages(chatRoamId: event.chatRoamId);
+    // emit(MessagingLoaded(messages: messages));
+  }
 }

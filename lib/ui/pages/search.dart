@@ -123,7 +123,14 @@ class _SearchState extends State<Search> {
                               icon: EvaIcons.flash,
                               size: size.height * 0.04,
                               color: AppColors.yellow,
-                              onTap: () {}),
+                              onTap: () {
+                                _searchBloc.add(
+                                  ChoseUser(
+                                      currentUserId: _currentUser.id,
+                                      selectedUserId: user.id
+                                  ),
+                                );
+                              }),
                           iconWidget(
                               icon: Icons.clear,
                               size: size.height * 0.04,

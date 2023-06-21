@@ -104,6 +104,10 @@ Future<void> updateMessageSeen(
         .update({
       'isSeen': true,
     });
+
+    await _messageCollectionRef.doc(chatRoamId).update({
+      'lastMessage.isSeen': true,
+    });
   }
 
   Future<void> deleteMessage(

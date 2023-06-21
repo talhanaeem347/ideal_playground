@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_playground/bloc/matchies/matches_bloc.dart';
 import 'package:ideal_playground/models/user.dart';
-import 'package:ideal_playground/repositories/match_repository.dart';
 import 'package:ideal_playground/ui/pages/chat_roam.dart';
-import 'package:ideal_playground/ui/widgets/page_turn.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
 import 'iconWidget.dart';
@@ -12,8 +10,6 @@ import 'userGender.dart';
 
 void profileDialog(
     {required BuildContext context, required Size size, required UserModel user, required int differance, required bool isMatched, required MatchesBloc matchesBloc, required UserModel currentUser}) {
-  MatchRepository matchRepository = MatchRepository();
-
   showDialog(
       context: context,
       builder: (context) {
@@ -83,52 +79,57 @@ void profileDialog(
                             size: size.height * 0.04,
                             color: AppColors.yellow,
                             onTap: () async {
-                              // final chatRoam = await matchRepository.openChat(currentUserId: currentUser.id, selectedUserId: user.id);
-                              // pageTurn(context:context, page: ChatRoam(chatRoam:chatRoam,user: user));
-                              pageTurn(context:context, page: ChatRoam(userId: currentUser.id, matchId: user.id,));
-
-                              // Navigator.pop(context);
-                              // matchesBloc.add(
-                              //     MatchesOpenChatEvent(
-                              //       currentUserId: currentUser.id,
-                              //       selectedUserId: user.id,
-                              //     ));
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatRoam(
+                                    userId: currentUser.id,
+                                    matchId: user.id,
+                                  ),
+                                ),
+                              );
+                                 matchesBloc.add(
+                                        MatchesOpenChatEvent(
+                                          currentUserId: currentUser.id,
+                                          selectedUserId: user.id,
+                                        ));
+                                 Navigator.pop(context);
                             })
                             : iconWidget(
                             icon: Icons.clear,
                             size: size.height * 0.04,
                             color: AppColors.blue,
                             onTap: () {
-                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesDeleteUserEvent(
                                     currentUserId: currentUser.id,
                                     selectedUserId: user.id,
                                   ));
+                              Navigator.pop(context);
                             }),
                         isMatched ? iconWidget(
                             icon: Icons.call_rounded,
                             size: size.height * 0.04,
                             color: AppColors.green,
                             onTap: () {
-                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesOpenCallEvent(
                                     currentUserId: currentUser.id,
                                     selectedUserId: user.id,
                                   ));
+                              Navigator.pop(context);
                             })
                             : iconWidget(
                             icon: Icons.favorite,
                             size: size.height * 0.04,
                             color: AppColors.red,
                             onTap: () {
-                              Navigator.pop(context);
                               matchesBloc.add(
                                   MatchesAcceptUserEvent(
                                     currentUser: currentUser,
                                     selectedUser: user,
                                   ));
+                              Navigator.pop(context);
                             }),
 
                       ],

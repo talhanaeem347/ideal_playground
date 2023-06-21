@@ -31,38 +31,21 @@ class MatchRepository {
     return UserModel.fromMap(user.data() as Map<String, dynamic>);
   }
 
-  Future<ChatRoamModel> openChat(
+  Future<void> removeMatch(
       {required String currentUserId, required String selectedUserId}) async {
-    ChatRoamModel newChatRoam = ChatRoamModel(
-        chatRoamId: uuid.v1(),
-        users: {currentUserId: true, selectedUserId: true},
-        lastMessage: Message(
-          id: "",
-          type: "text",
-          content: "",
-          senderId: "",
-          isSeen: false,
-          time: Timestamp.fromDate(DateTime.now()),
-        ));
-    print("ok");
-    await _fireStore
-        .collection('chatRoams')
-        .doc(newChatRoam.chatRoamId)
-        .set(newChatRoam.toMap());
-    // await _fireStore
-    //     .collection('users')
-    //     .doc(currentUserId)
-    //     .collection('matchedList')
-    //     .doc(selectedUserId)
-    //     .delete();
-    // await _fireStore
-    //     .collection('users')
-    //     .doc(selectedUserId)
-    //     .collection('matchedList')
-    //     .doc(currentUserId)
-    //     .delete();
-    //
-    return newChatRoam;
+     _fireStore
+        .collection('users')
+        .doc(currentUserId)
+        .collection('matchedList')
+        .doc(selectedUserId)
+        .delete();
+     _fireStore
+        .collection('users')
+        .doc(selectedUserId)
+        .collection('matchedList')
+        .doc(currentUserId)
+        .delete();
+
   }
 
   Future deleteUser(
@@ -126,16 +109,4 @@ class MatchRepository {
       'lastMessageTime': DateTime.now(),
     });
   }
-
-// Future<ChatRoamModel> openChatRoam(userId, matchedUserId) async {
-//   ChatRoamModel newChatRoam = ChatRoamModel(
-//       chatRoamId: uuid.v1(),
-//       users: {userId: true, matchedUserId: true},
-//       lastMessage: null);
-//   await _fireStore
-//       .collection('chatRoams')
-//       .doc(newChatRoam.chatRoamId)
-//       .set(newChatRoam.toMap());
-//   return newChatRoam;
-// }
 }

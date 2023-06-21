@@ -87,7 +87,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     width: size.width * 0.5,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo.jpg'),
+                        image: AssetImage('assets/logo.png'),
                       ),
                     ),
                   ),

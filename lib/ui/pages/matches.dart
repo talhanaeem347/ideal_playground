@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/matchies/matches_bloc.dart';
 import 'package:ideal_playground/repositories/match_repository.dart';
-import 'package:ideal_playground/ui/pages/chat_roam.dart';
 import 'package:ideal_playground/ui/widgets/liked_someone.dart';
 import 'package:ideal_playground/ui/widgets/matches_grid.dart';
-import 'package:ideal_playground/ui/widgets/page_turn.dart';
 
 class Matches extends StatefulWidget {
   final String _userId;

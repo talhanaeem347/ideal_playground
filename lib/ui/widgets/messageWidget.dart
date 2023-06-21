@@ -1,13 +1,16 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_playground/bloc/messaging/messaging_bloc.dart';
 import 'package:ideal_playground/helpers/date_time.dart';
 import 'package:ideal_playground/models/message.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
-Widget messageWidget({required QueryDocumentSnapshot<Map<String,dynamic>> data, required Size size, required String userId}) {
+Widget messageWidget({required QueryDocumentSnapshot<Map<String,dynamic>> data, required Size size, required String userId, required MessagingBloc messagingBloc, required String chatRoamId}) {
   Message message = Message.fromMap(data.data());
-  print(message.time.toDate().hour % 12);
+  if(message.senderId.toString() != userId.toString() && !message.isSeen ){
+    messagingBloc.add(UpdateMessage(messageId: message.id, chatRoamId: chatRoamId));
+  }
   return Container(
     height: 60,
     color: AppColors.transparent,

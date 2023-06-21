@@ -47,10 +47,10 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       MatchesOpenChatEvent event, Emitter<MatchesState> emit) async {
     emit(MatchesLoading());
 
-    final chatRoam = await _matchRepository.openChat(
+    await _matchRepository.removeMatch(
         currentUserId: event.currentUserId,
         selectedUserId: event.selectedUserId).then((chatRoam){
-        emit(ChatOpenState(chatRoam:chatRoam,userId:event.currentUserId));
+
     });
   }
 
