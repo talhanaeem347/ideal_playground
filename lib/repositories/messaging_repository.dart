@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ideal_playground/helpers/uuid_helper.dart';
 import 'package:ideal_playground/models/chat_roam_model.dart';
 import 'package:ideal_playground/models/message.dart';
 import 'package:ideal_playground/models/user.dart';
-import 'package:uuid/uuid.dart';
+
 
 class MessagingRepository {
   final FirebaseFirestore _firestore;
   final CollectionReference _messageCollectionRef;
   final FirebaseStorage _firebaseStorage;
-  final uuid = const Uuid().v4();
+
 
   MessagingRepository(
       {FirebaseStorage? firebaseStorage,
@@ -34,7 +34,7 @@ class MessagingRepository {
       return chatRoam['chatRoamId'];
     } else {
       ChatRoamModel newChatRoam = ChatRoamModel(
-          chatRoamId: uuid,
+          chatRoamId: assignId(),
           users: {userId: true, matchedUserId: true},
           lastMessage: Message(
             id: "",
@@ -60,40 +60,40 @@ class MessagingRepository {
         .snapshots();
   }
 
-  Future<void> sendMessage(
-      {required String chatRoamId,
-      required String senderId,
-      required String content,
-      required String type}) async {
-    Message message = Message(
-      id: uuid,
-      senderId: senderId,
-      content: content,
-      type: type,
-      time: Timestamp.fromDate(DateTime.now()),
-      isSeen: false,
-    );
+    Future<void> sendMessage(
+        {required String chatRoamId,
+        required String senderId,
+        required String content,
+        required String type}) async {
+      Message message = Message(
+        id: assignId(),
+        senderId: senderId,
+        content: content,
+        type: type,
+        time: Timestamp.fromDate(DateTime.now()),
+        isSeen: false,
+      );
 
-    await _messageCollectionRef
-        .doc(chatRoamId)
-        .collection('messages')
-        .doc(message.id)
-        .set(
-          message.toMap(),
-        );
-    await _messageCollectionRef.doc(chatRoamId).update({
-      'lastMessage': message.toMap(),
-    });
-
+      await _messageCollectionRef
+          .doc(chatRoamId)
+          .collection('messages')
+          .doc(message.id)
+          .set(
+        message.toMap(),
+      );
+      await _messageCollectionRef.doc(chatRoamId).update({
+        'lastMessage': message.toMap(),
+      });
+    }
     Future<String> uploadImage({required String filePath}) async {
       final TaskSnapshot uploadTask = await _firebaseStorage
           .ref()
-          .child('chat_images/$uuid')
+          .child('chat_images/$assignId()')
           .putFile(File(filePath));
 
       return await uploadTask.ref.getDownloadURL();
     }
-  }
+
 
 Future<void> updateMessageSeen(
       {required String chatRoamId, required String messageId}) async {

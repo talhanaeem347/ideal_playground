@@ -151,12 +151,17 @@ class _ChatRoamState extends State<ChatRoam> {
                                     isTyping = value.isNotEmpty;
                                   });
                                 },
-                                decoration: const InputDecoration(
+                                decoration:  InputDecoration(
                                   hintText: 'Type a message',
+                                  hintStyle: TextStyle(
+                                    fontSize: 20,
+                                    color: AppColors.grey,
+                                  )
                                 ),
                                 style: TextStyle(
                                   fontSize: 20,
                                   color: AppColors.black,
+
                                 ),
                               ),
                             ),

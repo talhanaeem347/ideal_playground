@@ -4,6 +4,7 @@ class AppStrings{
 
 
 
+
   static String get email => "Email";
   static String get password => "Password";
   static String get confirmPassword => "Confirm Password";
@@ -50,6 +51,7 @@ class AppStrings{
   static String get female => "Female";
   static String get male => "Male";
   static String get other => "Other";
+  static String get settings => "Settings";
 
 
 }

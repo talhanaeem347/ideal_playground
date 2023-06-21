@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ideal_playground/models/user.dart';
@@ -16,6 +18,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SelectUserEvent>(_mapSelectUserEventToState);
     on<PassUserEvent>(_mapPassEventToState);
     on<LoadUserEvent>(_mapLoadUserEventToState);
+    on<ChoseUser>(_mapChoseUserToState);
   }
 
 
@@ -49,5 +52,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final currentUser =
         await _searchRepository.getUserInterests(event.userId);
     emit(SearchUserState(user: user, currentUser: currentUser));
+  }
+
+  FutureOr<void> _mapChoseUserToState(ChoseUser event, Emitter<SearchState> emit) async {
+    emit(SearchLoadingState());
+    _searchRepository.choseUser(
+      currentUserId: event.currentUserId,
+      selectedUserId: event.selectedUserId,
+    );
+    final user = await _searchRepository.getUser(event.currentUserId);
+    final currentUser =
+        await _searchRepository.getUserInterests(event.currentUserId);
+    emit(SearchUserState(user: user, currentUser: currentUser));
+
   }
 }

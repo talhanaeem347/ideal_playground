@@ -25,12 +25,12 @@ Widget matchesGrid(
         width: size.width,
         height: size.height * 0.06,
         decoration: BoxDecoration(
-          color: AppColors.scaffoldBackgroundColor,
+          color: AppColors.white,
         ),
         child: Text(
           "Matches",
           style: TextStyle(
-            color: AppColors.white,
+            color: AppColors.yellow.withOpacity(0.8),
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),

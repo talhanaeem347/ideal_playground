@@ -12,7 +12,6 @@ Widget likedPeople(
       required Size size,
       required Stream<QuerySnapshot> list,
       required String userId,
-      // required String selectedUserId,
       required MatchesBloc matchesBloc,
     }) {
   return Column(
@@ -25,12 +24,12 @@ Widget likedPeople(
         width: size.width,
         height: size.height * 0.06,
         decoration: BoxDecoration(
-          color: AppColors.scaffoldBackgroundColor,
+          color: AppColors.white,
         ),
         child: Text(
           "People Liked You",
           style: TextStyle(
-            color: AppColors.white,
+            color: AppColors.yellow.withOpacity(0.8),
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
