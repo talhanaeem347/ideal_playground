@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
 import 'package:ideal_playground/bloc/login/log_in_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
+import 'package:ideal_playground/ui/pages/sign_up.dart';
 import 'package:ideal_playground/ui/widgets/custom/my_input_field.dart';
 import 'package:ideal_playground/ui/widgets/custom/simple_button.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
@@ -68,7 +69,6 @@ class _LogInFormState extends State<LogInForm> {
             scrollDirection: Axis.vertical,
             child: Container(
               color: AppColors.scaffoldBackgroundColor,
-              height: size.height * 0.65,
               width: size.width,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -120,7 +120,23 @@ class _LogInFormState extends State<LogInForm> {
                     textColor: AppColors.yellow,
                     width: size.width * 0.5,
                     height: size.height * 0.08,
-                  )
+                  ),
+                  SizedBox(height: size.height * 0.05),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              SignUpPage(userRepository: _userRepository)));
+                    },
+                    child: Text(
+                      AppStrings.dontHaveAnAccount,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: AppColors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -131,7 +147,7 @@ class _LogInFormState extends State<LogInForm> {
   }
 
   void _onEmailChanged() =>
-      _logInBloc.add(LogInEmailChanged(email: _emailController.text));
+    _logInBloc.add(LogInEmailChanged(email: _emailController.text));
 
   void _onPasswordChanged() =>
       _logInBloc.add(LogInPasswordChanged(password: _passwordController.text));

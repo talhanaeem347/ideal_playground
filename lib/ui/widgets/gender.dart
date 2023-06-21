@@ -7,7 +7,7 @@ Widget genderWidget(icon,text,size,selected,onTap){
     onTap: onTap,
     child: Container(
       width: size.width * 0.28,
-      height: size.height * 0.16,
+      height: size.height * 0.14,
       padding: const EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
         color: selected == text ? AppColors.grey.withOpacity(0.3)  : AppColors.transparent,
@@ -26,7 +26,7 @@ Widget genderWidget(icon,text,size,selected,onTap){
           Icon(
             icon,
             color: AppColors.grey ,
-            size: size.width * 0.2,
+            size: size.width * 0.16,
           ),
           SizedBox(
             height: size.height * 0.008,

@@ -81,8 +81,11 @@ class _MessagesState extends State<Messages> {
                   );
                 }
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("ّYou Have No Messages"),
                 );
+                // return const Center(
+                //   child: CircularProgressIndicator(),
+                // );
               });
         }
         return const Center(
