@@ -31,15 +31,9 @@
 
 ## Screenshots
 
-![Screenshot](/screenshots/splash.png)
-![Screenshot](/screenshots/login.png)
-![Screenshot](/screenshots/signup.png)
-![Screenshot](/screenshots/search.png)
-![Screenshot](/screenshots/match.png)
-![Screenshot](/screenshots/matchPopup.png)
-![Screenshot](/screenshots/settings.png)
-![Screenshot](/screenshots/chatList.png)
-![Screenshot](/screenshots/chatRoam.png)
+![Splash](/screenshots/splash.png) | ![Login](/screenshots/login.png) | ![Signup](/screenshots/signup.png)
+![Search](/screenshots/search.png) | ![Match](/screenshots/match.png) | ![Match Popup](/screenshots/matchPopup.png)
+![Settings](/screenshots/settings.png) | ![Chat List](/screenshots/chatList.png) | ![Chat Roam](/screenshots/chatRoam.png)
 
 ## Contributors
 
