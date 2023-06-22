@@ -109,6 +109,7 @@ class _SettingsState extends State<Settings> {
                           onPressed: () {
                             BlocProvider.of<AuthenticationBloc>(context).add(
                                 LoggedOut());
+                            Navigator.pop(context);
                           },
                           color: AppColors.yellow,
                           label: "Logout",

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -28,6 +27,8 @@ class AuthenticationBloc
   AuthenticationState get initialState => UnInitialized();
 
   void _mapAppStartedToState(event, emit) async {
+    const Duration duration = Duration(seconds: 2);
+    await Future.delayed(duration);
     try {
       final String uid = await _uid;
       final isLogIn = await _userRepository.isLoggedIn();
@@ -69,6 +70,7 @@ class AuthenticationBloc
   }
 
   void _mapAppLoggedOutToState(event, emit) async {
+    emit(UnInitialized());
     await _userRepository.signOut();
     emit(UnAuthenticated());
   }
