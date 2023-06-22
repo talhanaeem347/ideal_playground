@@ -31,10 +31,17 @@
 
 ## Screenshots
 
-![Splash](/screenshots/splash.png) | ![Login](/screenshots/login.png) | ![Signup](/screenshots/signup.png)
-![Search](/screenshots/search.png) | ![Match](/screenshots/match.png) | ![Match Popup](/screenshots/matchPopup.png)
-![Settings](/screenshots/settings.png) | ![Chat List](/screenshots/chatList.png) | ![Chat Roam](/screenshots/chatRoam.png)
+| Splash | Login | Signup |
+|---|---|---|
+| ![Splash](/screenshots/splash.png) | ![Login](/screenshots/login.png) | ![Signup](/screenshots/signup.png) |
 
+| Search | Match | Match Popup |
+|---|---|---|
+| ![Search](/screenshots/search.png) | ![Match](/screenshots/match.png) | ![Match Popup](/screenshots/matchPopup.png) |
+
+| Settings | Chat List | Chat Roam |
+|---|---|---|
+| ![Settings](/screenshots/settings.png) | ![Chat List](/screenshots/chatList.png) | ![Chat Roam](/screenshots/chatRoam.png) |
 ## Contributors
 
         Talha Naeem
