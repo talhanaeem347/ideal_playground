@@ -42,6 +42,10 @@
 | Settings | Chat List | Chat Roam |
 |---|---|---|
 | ![Settings](/screenshots/settings.png) | ![Chat List](/screenshots/chatList.png) | ![Chat Roam](/screenshots/chatRoam.png) |
+
+| Search User                             | | |
+|-----------------------------------------|---|---|
+| ![Profile](/screenshots/searchUser.png) | | |
 ## Contributors
 
         Talha Naeem
