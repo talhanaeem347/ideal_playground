@@ -7,24 +7,24 @@ import 'package:ideal_playground/ui/widgets/messageWidget.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
-class ChatRoam extends StatefulWidget {
+class ChatRoom extends StatefulWidget {
   final String userId, matchId;
 
-  const ChatRoam({Key? key, required this.userId, required this.matchId})
+  const ChatRoom({Key? key, required this.userId, required this.matchId})
       : super(key: key);
 
   @override
-  State<ChatRoam> createState() => _ChatRoamState();
+  State<ChatRoom> createState() => _ChatRoomState();
 }
 
-class _ChatRoamState extends State<ChatRoam> {
+class _ChatRoomState extends State<ChatRoom> {
   final TextEditingController _messageController = TextEditingController();
   final MessagingRepository _messagingRepository = MessagingRepository();
   late MessagingBloc _messagingBloc;
   bool isTyping = false;
 
-  Future<String> getChatRoamId() async {
-    final value = await _messagingRepository.getChatRoam(
+  Future<String> getChatRoomId() async {
+    final value = await _messagingRepository.getChatRoom(
       userId: userId,
       matchedUserId: matchId,
     );
@@ -35,17 +35,17 @@ class _ChatRoamState extends State<ChatRoam> {
       await _messagingRepository.getUser(userId: matchId);
 
   Future<void> getDetails() async {
-    final chatRoamId = await getChatRoamId();
+    final chatRoomId = await getChatRoomId();
     final user = await getUser();
 
     setState(() {
-      this.chatRoamId = chatRoamId;
+      this.chatRoomId = chatRoomId;
       this.user = user;
     });
   }
 
   late UserModel user;
-  String chatRoamId = "";
+  String chatRoomId = "";
 
   get userId => widget.userId;
 
@@ -57,7 +57,7 @@ class _ChatRoamState extends State<ChatRoam> {
     super.initState();
     _messagingBloc = MessagingBloc(messagingRepository: _messagingRepository);
     getDetails()
-        .then((_) => _messagingBloc.add(LoadChatRoam(chatRoamId: chatRoamId)));
+        .then((_) => _messagingBloc.add(LoadChatRoom(chatRoomId: chatRoomId)));
   }
 
   @override
@@ -121,7 +121,7 @@ class _ChatRoamState extends State<ChatRoam> {
 
                                     return messageWidget(
                                       messagingBloc: _messagingBloc,
-                                        chatRoamId: chatRoamId,
+                                        chatRoomId: chatRoomId,
                                         data: list[index],
                                         size: size,
                                         userId: userId);
@@ -178,7 +178,7 @@ class _ChatRoamState extends State<ChatRoam> {
                               });
                               _messagingBloc.add(SendMessage(
                                 content: str,
-                                chatRoamId: chatRoamId,
+                                chatRoomId: chatRoomId,
                                 senderId: userId,
                                 type: 'text',
                               ));

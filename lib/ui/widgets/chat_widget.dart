@@ -1,21 +1,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:ideal_playground/bloc/message/message_bloc.dart';
-import 'package:ideal_playground/models/chat_roam_model.dart';
+import 'package:ideal_playground/models/chat_room_model.dart';
 import 'package:ideal_playground/models/message.dart';
 import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/message_repository.dart';
-import 'package:ideal_playground/ui/pages/chat_roam.dart';
+import 'package:ideal_playground/ui/pages/chat_room.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'page_turn.dart';
 
 class ChatWidget extends StatefulWidget {
-  final ChatRoamModel chatRoam;
+  final ChatRoomModel chatRoom;
   final String userId;
   final MessageBloc messageBloc;
 
-  const ChatWidget({Key? key, required this.chatRoam, required this.userId, required this.messageBloc})
+  const ChatWidget({Key? key, required this.chatRoom, required this.userId, required this.messageBloc})
       : super(key: key);
 
   @override
@@ -25,14 +25,14 @@ class ChatWidget extends StatefulWidget {
 class _ChatWidgetState extends State<ChatWidget> {
   final MessageRepository _messageRepository = MessageRepository();
 
-  ChatRoamModel get _chatRoam => widget.chatRoam;
+  ChatRoomModel get _chatRoom => widget.chatRoom;
 
   String get _userId =>
-      _chatRoam.users.keys.firstWhere((element) => element != widget.userId);
+      _chatRoom.users.keys.firstWhere((element) => element != widget.userId);
 
   Future<Map<String, dynamic>> getDetails() async {
     final UserModel user = await _messageRepository.getUser(userId: _userId);
-    final lastMessage = _chatRoam.lastMessage;
+    final lastMessage = _chatRoom.lastMessage;
     return {'user': user, 'lastMessage': lastMessage};
   }
 
@@ -49,7 +49,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             onTap: () {
               pageTurn(
                 context: context,
-                page: ChatRoam(
+                page: ChatRoom(
                   matchId: user.id,
                   userId: widget.userId,
                 ),
@@ -67,7 +67,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                       child: const Text('No')),
                   TextButton(
                       onPressed: () {
-                        widget.messageBloc.add(BlockUserEvent(userId: widget.userId, chatRoamId:_chatRoam.chatRoamId ));
+                        widget.messageBloc.add(BlockUserEvent(userId: widget.userId, chatRoomId:_chatRoom.chatRoomId ));
                       },
                       child: const Text('Yes')),
                 ],

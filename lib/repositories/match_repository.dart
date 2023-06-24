@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ideal_playground/models/chat_roam_model.dart';
+import 'package:ideal_playground/models/chat_room_model.dart';
 import 'package:ideal_playground/models/message.dart';
 import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/message_repository.dart';

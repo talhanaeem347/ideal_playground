@@ -5,6 +5,7 @@ class UserModel {
   String id = "";
   String email = "";
   String name = "";
+  String lowerCaseName = "";
   String interestedIn = "";
   String phone = "";
   String gender = "";
@@ -36,6 +37,7 @@ class UserModel {
     this.interestedIn = "",
     this.isMarried = false,
     this.isOpen = true,
+    this.lowerCaseName = "",
   }) : dateOfBirth = dateOfBirth ?? AppStrings.maxDate;
 
   UserModel.fromMap(Map<String, dynamic> json) {
@@ -55,6 +57,7 @@ class UserModel {
     isMarried = json['isMarried'];
     isOpen = json['isOpen'];
     gender = json['gender'];
+    lowerCaseName = json['lowerCaseName'];
 
   }
 
@@ -76,6 +79,7 @@ class UserModel {
     data['isMarried'] = isMarried;
     data['isOpen'] = isOpen;
     data['gender'] = gender;
+    data['lowerCaseName'] = lowerCaseName;
     return data;
   }
 

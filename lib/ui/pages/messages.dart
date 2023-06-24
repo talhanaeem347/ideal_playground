@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideal_playground/bloc/message/message_bloc.dart';
-import 'package:ideal_playground/models/chat_roam_model.dart';
+import 'package:ideal_playground/models/chat_room_model.dart';
 import 'package:ideal_playground/repositories/message_repository.dart';
 import 'package:ideal_playground/ui/widgets/chat_widget.dart';
 import 'package:ideal_playground/ui/widgets/page_turn.dart';
@@ -48,10 +48,10 @@ class _MessagesState extends State<Messages> {
             child: CircularProgressIndicator(),
           );
         }
-        if (state is ChatRoamsLoaded) {
+        if (state is ChatRoomsLoaded) {
           return Scaffold(
             body: StreamBuilder<QuerySnapshot>(
-                stream: state.chatRoams,
+                stream: state.chatRooms,
                 builder: (context, snapShot) {
                   if (snapShot.hasData) {
                     if (snapShot.data!.docs.isNotEmpty) {
@@ -68,7 +68,7 @@ class _MessagesState extends State<Messages> {
                                     margin: const EdgeInsets.all(4),
                                     child: ChatWidget(
                                           messageBloc: _messageBloc,
-                                        chatRoam: ChatRoamModel.fromMap(
+                                        chatRoom: ChatRoomModel.fromMap(
                                             list[index].data()
                                                 as Map<String, dynamic>),
                                         userId: widget.userId));

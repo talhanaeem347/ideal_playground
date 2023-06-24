@@ -19,10 +19,10 @@ class MatchesLoaded extends MatchesState {
 }
 
 class ChatOpenState extends MatchesState {
-  final ChatRoamModel chatRoam;
+  final ChatRoomModel chatRoom;
   final String userId;
-  const ChatOpenState({required this.chatRoam,required this.userId});
+  const ChatOpenState({required this.chatRoom,required this.userId});
   @override
-  List<Object> get props => [chatRoam];
+  List<Object> get props => [chatRoom];
 
 }

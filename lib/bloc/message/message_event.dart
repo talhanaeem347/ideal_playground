@@ -12,10 +12,10 @@ class LoadChatsEvent extends MessageEvent {
 }
 class BlockUserEvent extends MessageEvent {
   final String userId;
-  final String chatRoamId;
-  const BlockUserEvent({required this.userId, required this.chatRoamId});
+  final String chatRoomId;
+  const BlockUserEvent({required this.userId, required this.chatRoomId});
   @override
-  List<Object> get props => [userId, chatRoamId];
+  List<Object> get props => [userId, chatRoomId];
 }
 // class SearchMatchEvent extends MessageEvent{
 //   final String userId;

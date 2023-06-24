@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_playground/bloc/matchies/matches_bloc.dart';
 import 'package:ideal_playground/models/user.dart';
-import 'package:ideal_playground/ui/pages/chat_roam.dart';
+import 'package:ideal_playground/ui/pages/chat_room.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 
 import 'iconWidget.dart';
@@ -82,7 +82,7 @@ void profileDialog(
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ChatRoam(
+                                  builder: (context) => ChatRoom(
                                     userId: currentUser.id,
                                     matchId: user.id,
                                   ),

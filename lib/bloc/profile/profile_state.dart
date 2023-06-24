@@ -102,6 +102,7 @@ class ProfileState {
           isMarried: isMarried ?? user.isMarried,
           isOpen: isOpen ?? user.isOpen,
           photoUrl: photoUrl ?? user.photoUrl,
+          lowerCaseName: name != null ? name.toLowerCase() : user.lowerCaseName,
         ));
   }
   ProfileState updateUser({UserModel? user}){

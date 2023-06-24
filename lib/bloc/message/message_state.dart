@@ -4,8 +4,8 @@ abstract class MessageState extends Equatable {
   const MessageState();
   List<Object> get props => [];
 }
-abstract class ChatRoamState extends MessageState {
-  const ChatRoamState();
+abstract class ChatRoomState extends MessageState {
+  const ChatRoomState();
   List<Object> get props => [];
 }
 abstract class SearchState extends MessageState{
@@ -13,27 +13,27 @@ abstract class SearchState extends MessageState{
   List<Object> get props => [];
 }
 
-class ChatRoamInitial extends ChatRoamState {}
-class ChatRoamLoading extends ChatRoamState {}
-class ChatRoamError extends ChatRoamState {
+class ChatRoomInitial extends ChatRoomState {}
+class ChatRoomLoading extends ChatRoomState {}
+class ChatRoomError extends ChatRoomState {
   final String message;
-  const ChatRoamError(this.message);
+  const ChatRoomError(this.message);
   @override
   List<Object> get props => [message];
 }
 
-class ChatRoamLoaded extends ChatRoamState {
-  final ChatRoamModel chatRoam;
-  const ChatRoamLoaded(this.chatRoam);
+class ChatRoomLoaded extends ChatRoomState {
+  final ChatRoomModel chatRoom;
+  const ChatRoomLoaded(this.chatRoom);
   @override
-  List<Object> get props => [chatRoam];
+  List<Object> get props => [chatRoom];
 }
 
-class ChatRoamsLoaded extends MessageState {
-  final Stream<QuerySnapshot> chatRoams;
-  const ChatRoamsLoaded({required this.chatRoams});
+class ChatRoomsLoaded extends MessageState {
+  final Stream<QuerySnapshot> chatRooms;
+  const ChatRoomsLoaded({required this.chatRooms});
   @override
-  List<Object> get props => [chatRoams];
+  List<Object> get props => [chatRooms];
 }
 
 class MessageInitial extends MessageState {}

@@ -11,28 +11,28 @@ part 'messaging_state.dart';
 class MessagingBloc extends Bloc<MessagingEvent, MessagingState> {
   final MessagingRepository _messagingRepository;
   MessagingBloc({required MessagingRepository messagingRepository}) :_messagingRepository = messagingRepository, super(MessagingInitial()) {
-    on<LoadChatRoam>(_loadChatRoam);
+    on<LoadChatRoom>(_loadChatRoom);
     on<SendMessage>(_sendMessage);
     on<UpdateMessage>(_updateMessage);
   }
 
-  void _loadChatRoam(LoadChatRoam event, Emitter<MessagingState> emit) async {
+  void _loadChatRoom(LoadChatRoom event, Emitter<MessagingState> emit) async {
     emit(MessagingLoading());
-    final messages =  _messagingRepository.getMessages(chatRoamId: event.chatRoamId);
+    final messages =  _messagingRepository.getMessages(chatRoomId: event.chatRoomId);
     emit(MessagingLoaded(messages: messages));
 
   }
 
   void _sendMessage(SendMessage event, Emitter<MessagingState> emit) async {
-    await _messagingRepository.sendMessage(chatRoamId: event.chatRoamId, senderId: event.senderId, content: event.content, type: event.type);
-    final messages =  _messagingRepository.getMessages(chatRoamId: event.chatRoamId);
+    await _messagingRepository.sendMessage(chatRoomId: event.chatRoomId, senderId: event.senderId, content: event.content, type: event.type);
+    final messages =  _messagingRepository.getMessages(chatRoomId: event.chatRoomId);
     emit(MessagingLoaded(messages: messages));
   }
 
 
   FutureOr<void> _updateMessage(UpdateMessage event, Emitter<MessagingState> emit) {
-    _messagingRepository.updateMessageSeen(chatRoamId: event.chatRoamId, messageId: event.messageId);
-    // final messages =  _messagingRepository.getMessages(chatRoamId: event.chatRoamId);
+    _messagingRepository.updateMessageSeen(chatRoomId: event.chatRoomId, messageId: event.messageId);
+    // final messages =  _messagingRepository.getMessages(chatRoomId: event.chatRoomId);
     // emit(MessagingLoaded(messages: messages));
   }
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ideal_playground/models/chat_roam_model.dart';
+import 'package:ideal_playground/models/chat_room_model.dart';
 import 'package:ideal_playground/models/user.dart';
 import 'package:ideal_playground/repositories/match_repository.dart';
 
