@@ -13,6 +13,7 @@ import 'package:ideal_playground/ui/pages/splash.dart';
 import 'package:ideal_playground/ui/widgets/tabs.dart';
 import 'package:ideal_playground/utils/constants/app_Strings.dart';
 import 'firebase_options.dart';
+import 'helpers/location_permetion.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
                 } else if (state is ProfileInComplete) {
                   return Profile(userRepository: _userRepository);
                 } else if (state is Authenticated) {
+                  LocationPermissionHelper.checkPermission();
                   return Tabs(userId: state.uid);
                 } else {
                   return const Splash();

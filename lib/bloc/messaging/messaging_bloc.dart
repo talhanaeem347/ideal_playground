@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ideal_playground/helpers/notification.dart';
+
 import 'package:ideal_playground/repositories/messaging_repository.dart';
 
 part 'messaging_event.dart';
@@ -26,6 +28,9 @@ class MessagingBloc extends Bloc<MessagingEvent, MessagingState> {
   void _sendMessage(SendMessage event, Emitter<MessagingState> emit) async {
     await _messagingRepository.sendMessage(chatRoomId: event.chatRoomId, senderId: event.senderId, content: event.content, type: event.type);
     final messages =  _messagingRepository.getMessages(chatRoomId: event.chatRoomId);
+    final user = await _messagingRepository.getUser(userId: event.matchId);
+    print("send");
+    await Notification.sendPushNotification(token: user.token, title: "New Message", imageUrl: user.photoUrl, message: event.content);
     emit(MessagingLoaded(messages: messages));
   }
 

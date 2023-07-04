@@ -18,10 +18,11 @@ class SendMessage extends MessagingEvent{
   final String content;
   final String chatRoomId;
   final String senderId;
+  final String matchId;
   final String type;
 
 
-  const SendMessage({required this.content, required this.chatRoomId, required this.senderId,required this.type});
+  const SendMessage({required this.content, required this.chatRoomId, required this.senderId,required this.matchId,required this.type});
   @override
   List<Object> get props => [content, chatRoomId, senderId,type];
 }
