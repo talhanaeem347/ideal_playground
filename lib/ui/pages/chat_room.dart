@@ -180,6 +180,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                 content: str,
                                 chatRoomId: chatRoomId,
                                 senderId: userId,
+                                matchId: matchId,
                                 type: 'text',
                               ));
                             },

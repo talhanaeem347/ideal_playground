@@ -41,6 +41,7 @@ class AuthenticationBloc
         } else if (await _userRepository.userNotComplete(uid)) {
           emit(ProfileInComplete(uid));
         } else {
+          await _userRepository.setOnline(uid);
           emit(Authenticated(uid));
         }
       } else {
@@ -82,6 +83,4 @@ class AuthenticationBloc
   void _mapProfileCompleteToState(event, emit) async {
     emit(Authenticated(await _uid));
   }
-
-
 }

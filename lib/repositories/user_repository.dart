@@ -1,23 +1,18 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ideal_playground/bloc/authentication/authentication_bloc.dart';
+import 'package:ideal_playground/helpers/fcm_notification_helper.dart';
 import 'package:ideal_playground/models/user.dart';
 
 class UserRepository {
-  // final FirebaseFirestore _fireStore;
   final CollectionReference _userCollection;
   final FirebaseAuth _firebaseAuth;
 
   UserRepository({
-    // FirebaseFirestore? fireStore,
     CollectionReference? userCollection,
     FirebaseAuth? firebaseAuth,
   })  :
-        // _fireStore = fireStore ?? FirebaseFirestore.instance,
         _userCollection =
             userCollection ?? FirebaseFirestore.instance.collection('users'),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
@@ -89,5 +84,13 @@ class UserRepository {
     DocumentSnapshot snapshot = await _userCollection.doc(uid).get();
      UserModel user = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
       return user;
+  }
+
+  setOnline(String userId) async {
+    FCMNotificationHelper.permission;
+    final fcmToken = await FCMNotificationHelper.token;
+    _userCollection.doc(userId).update({'isOnline' : true,
+    'token': fcmToken
+    });
   }
 }
