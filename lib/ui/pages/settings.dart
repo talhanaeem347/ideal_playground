@@ -86,6 +86,9 @@ class _SettingsState extends State<Settings> {
                         title: "Dark Mode",
                         size: size,
                         leadingIcon: Icons.light_mode_rounded,
+                        leadingColor: state.isDarkMode
+                            ? AppColors.yellow
+                            : AppColors.grey,
                         trailing: Switch(
                           value: state.isDarkMode,
                           onChanged: (value) {
@@ -97,6 +100,17 @@ class _SettingsState extends State<Settings> {
                           activeColor: AppColors.yellow,
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomListTile(
+                        title: "Notifications",
+                        size: size,
+                        leadingIcon: Icons.notifications_active_rounded,
+                        trailingIcon: Icons.arrow_forward_ios,
+                        onTap: () {},
+                        leadingColor: AppColors.yellow,
+                        ),
                       const SizedBox(
                         height: 10,
                       ),

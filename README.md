@@ -20,6 +20,10 @@
     User Settings
     User Preferences
     Theme Switching
+    Fcm Notifications
+    Edit Profile
+    Edit Preferences
+
 
 
 ## Getting Started
@@ -43,9 +47,9 @@
 |---|---|---|
 | ![Settings](/screenshots/settings.png) | ![Chat List](/screenshots/chatList.png) | ![Chat Roam](/screenshots/chatRoam.png) |
 
-| Search User                             | | |
-|-----------------------------------------|---|---|
-| ![Profile](/screenshots/searchUser.png) | | |
+| Search| UserProfile                                  | Edit Profile                                  |
+|-----------------------------------------|----------------------------------------------|-----------------------------------------------|
+| ![Profile](/screenshots/searchUser.png) | ![userProfile](/screenshots/userProfile.png) | ![Edit Profile](/screenshots/editProfile.png) |
 ## Contributors
 
         Talha Naeem

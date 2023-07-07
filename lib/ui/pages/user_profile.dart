@@ -4,7 +4,6 @@ import 'package:ideal_playground/bloc/user_profile/user_profile_bloc.dart';
 import 'package:ideal_playground/repositories/user_repository.dart';
 import 'package:ideal_playground/ui/pages/edit_profile.dart';
 import 'package:ideal_playground/ui/widgets/custom/CustomListTile.dart';
-import 'package:ideal_playground/ui/widgets/custom/custom_gradient.dart';
 import 'package:ideal_playground/ui/widgets/page_turn.dart';
 import 'package:ideal_playground/utils/constants/app_colors.dart';
 import 'package:intl/intl.dart';
@@ -56,7 +55,9 @@ class _UserProfileState extends State<UserProfile> {
                 title: const Text("My Profile"),
                 centerTitle: true,
               ),
-              body: CustomGradient(
+
+              body: Container(
+                padding: const EdgeInsets.all(10),
                 child: state is UserProfileInitial
                     ? () {
                         _userProfileBloc.add(LoadUserProfile(userId: _userId));
@@ -145,7 +146,7 @@ class _UserProfileState extends State<UserProfile> {
                                     size: size,
                                     leadingColor: AppColors.yellow,
                                     onTap: () {
-                                      pageTurn(context: context, page: EditProfileScreen(userRepository: _userRepository));
+                                      pageTurn(context: context, page: EditProfileScreen(userRepository: _userRepository,uid:_userId ,));
                                     },
                                     trailingIcon: Icons.arrow_forward_ios,
                                   ),
