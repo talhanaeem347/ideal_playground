@@ -55,6 +55,7 @@ class _UserProfileState extends State<UserProfile> {
                 title: const Text("My Profile"),
                 centerTitle: true,
               ),
+
               body: Container(
                 padding: const EdgeInsets.all(10),
                 child: state is UserProfileInitial
